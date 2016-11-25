@@ -1,5 +1,6 @@
 ﻿using NaturalShift.SolvingEnvironment.Matrix;
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace NaturalShift.SolvingEnvironment.Fitness
@@ -35,12 +36,12 @@ namespace NaturalShift.SolvingEnvironment.Fitness
 
             _itemEfforts = new Single[this.itemStartupEfforts.Length];
 
-            //compute normalizer as estimated upper bound
+            //compute normalizer as upper bound
             Array.Copy(this.itemStartupEfforts, this._itemEfforts, this.itemStartupEfforts.Length);
             Single maxSlotWeight = this.slotWeights.Max();
             for (int i = 0; i < this.itemStartupEfforts.Length; i++)
                 _itemEfforts[i] += this.itemWeights[i] * maxSlotWeight * days;
-            normalizer = Utils.MathUtils.StandardDeviation(new Single[] { 0, _itemEfforts.Max() }) / 10F;
+            normalizer = Utils.MathUtils.StandardDeviation(new Single[] { 0, _itemEfforts.Max() });
         }
 
         public float Evaluate(ShiftMatrix matrix)
@@ -57,8 +58,11 @@ namespace NaturalShift.SolvingEnvironment.Fitness
                     }
                 }
 
-            Single result = 1 - (Utils.MathUtils.StandardDeviation(_itemEfforts) / normalizer);
-            return result > 0 ? result : 0F;
+            var result = 1 - (Utils.MathUtils.StandardDeviation(_itemEfforts) / normalizer);
+
+            Debug.Assert(result >= 0 && result <= 1);
+
+            return result;
         }
     }
 }

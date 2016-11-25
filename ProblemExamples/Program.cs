@@ -65,10 +65,10 @@ namespace ProblemExamples
                 .ForProblem(problem)
                 .WithPopulationSize(100)
                 //.RenewingPopulationAfterEpochs(0)
-                .RenewingPopulationAfterSameFitnessEpochs(50)
-                .StoppingComputationAfter(30).Seconds
+                .RenewingPopulationAfterSameFitnessEpochs(5)
+                .StoppingComputationAfter(10).Seconds
                 //.UsingExactlyANumberOfThreadsEqualTo(4)
-                //.UsingExactlyANumberOfThreadsEqualTo(1)
+                .UsingExactlyANumberOfThreadsEqualTo(1)
                 .Build();
 
             var solution = solvingEnvironment.Solve();

@@ -126,12 +126,18 @@ namespace NaturalShift.UnitTests
         }
 
         [Test]
-        public void SelectionThrowsWhenRouletteValueIsGreaterThanOne()
+        [Repeat(1000)]
+        public void SelectionGivesLastElementWhenRouletteValueIsGreaterThanOne()
         {
             var itemSelector = new RouletteWheel();
-            var array = new Single[] { 1F, 1F, 1F, 1F, 1F };
+            var elems = rnd.Next(100) + 2;
+            var array = new Single[elems];
+            for (int i = 0; i < elems; i++)
+                array[i] = 1F;
 
-            Assert.Throws<IndexOutOfRangeException>(() => itemSelector.SelectItem(array, 1.0001F));
+            var selected = itemSelector.SelectItem(array, 1.0001F);
+
+            Assert.That(selected, Is.EqualTo(elems - 1));
         }
 
         [Test]

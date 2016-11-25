@@ -25,7 +25,15 @@ namespace NaturalShift.SolvingEnvironment.Fitness
 
         public double Evaluate(ShiftMatrix matrix)
         {
-            return Math.Pow(dimensions.Sum(x => x.Evaluate(matrix)), 3);
+            var d0 = dimensions[0].Evaluate(matrix);
+            var d1 = dimensions[1].Evaluate(matrix);
+            var d2 = dimensions[2].Evaluate(matrix);
+            var d3 = dimensions[3].Evaluate(matrix);
+
+            return .6 * d0 +
+                .2 * d1 +
+                .2 * d2 +
+                .2 * d3;
         }
     }
 }

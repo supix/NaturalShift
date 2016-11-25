@@ -1,5 +1,6 @@
 ﻿using NaturalShift.SolvingEnvironment.Matrix;
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace NaturalShift.SolvingEnvironment.Fitness
@@ -21,19 +22,26 @@ namespace NaturalShift.SolvingEnvironment.Fitness
                     if ((!all.Forced) && (all.ChosenItem.HasValue))
                         value += all.CurrentAptitudes[all.ChosenItem.Value];
                 }
-            return value / lastNormalizer;
+
+            var result = value / lastNormalizer;
+
+            Debug.Assert(result >= 0 && result <= 1);
+
+            return result;
         }
 
         private void SetNormalizer(ShiftMatrix matrix)
         {
+            //set the normalizer the first time
             if ((lastMatrix == null) || !object.ReferenceEquals(matrix, lastMatrix))
             {
+                lastMatrix = matrix;
                 lastNormalizer = 0;
                 for (int day = 0; day < matrix.Days; day++)
                     for (int slot = 0; slot < matrix.Slots; slot++)
                     {
                         if (!matrix[day, slot].Forced)
-                            lastNormalizer += matrix[day, slot].InitialAptitudes.Average();
+                            lastNormalizer += matrix[day, slot].InitialAptitudes.Max();
                     }
             }
         }

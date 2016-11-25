@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GAF, Version=2.2.5.40526, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GAF.2.2.5\lib\net45\GAF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -94,7 +98,6 @@
     <Compile Include="Model\SolutionModel\ISolution.cs" />
     <Compile Include="Model\SolutionModel\Solution.cs" />
     <Compile Include="SolvingEnvironment\Chromosomes\ChromosomeProcessor.cs" />
-    <Compile Include="SolvingEnvironment\Chromosomes\ThreadSafeShortArrayChromosome.cs" />
     <Compile Include="SolvingEnvironment\ComputationTerminationManager.cs" />
     <Compile Include="SolvingEnvironment\Constraints\ConsecutiveSlotAptitudeEnforcer.cs" />
     <Compile Include="SolvingEnvironment\Constraints\ConstraintsBuilder.cs" />
@@ -133,7 +136,9 @@
     <Compile Include="SolvingEnvironment\Utils\Logging.cs" />
     <Compile Include="SolvingEnvironment\Utils\MathUtils.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

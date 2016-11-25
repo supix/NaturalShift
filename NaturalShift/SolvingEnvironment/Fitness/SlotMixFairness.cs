@@ -1,5 +1,6 @@
 ﻿using NaturalShift.SolvingEnvironment.Matrix;
 using System;
+using System.Diagnostics;
 
 namespace NaturalShift.SolvingEnvironment.Fitness
 {
@@ -32,7 +33,11 @@ namespace NaturalShift.SolvingEnvironment.Fitness
                 for (int item = 0; item < matrix.Items; item++)
                     slotItemOccurrencies[item] = 0;
             }
-            return 1 - (value / (matrix.Slots * matrix.Items));
+            var result = 1 - (value / (matrix.Slots * matrix.Items));
+
+            Debug.Assert(result >= 0 && result <= 1);
+
+            return result;
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using AForge.Genetic;
+﻿using GAF;
 using NaturalShift.SolvingEnvironment.Chromosomes;
 using NaturalShift.SolvingEnvironment.Matrix;
 using System;
 
 namespace NaturalShift.SolvingEnvironment.Fitness
 {
-    internal class FitnessFunction : IFitnessFunction
+    internal class FitnessFunction
     {
         private readonly ChromosomeProcessor processor;
         private readonly FitnessEvaluator evaluator;
@@ -19,18 +19,15 @@ namespace NaturalShift.SolvingEnvironment.Fitness
             this.matrix = matrix;
         }
 
-        public double Evaluate(IChromosome chromosome)
+        public double Evaluate(Chromosome chromosome)
         {
-            var dac = ((ThreadSafeShortArrayChromosome)chromosome);
-
-            //bound chromosome to 1
-#warning use a chromosome intrinsically bounded to 1
             if (zeroToOneArray == null)
-                zeroToOneArray = new Single[dac.Length];
+                zeroToOneArray = new Single[chromosome.Count];
 
-            for (int i = 0; i < zeroToOneArray.Length; i++)
+            int i = 0;
+            foreach (var g in chromosome.Genes)
             {
-                zeroToOneArray[i] = dac.Value[i] / (Single)ushort.MaxValue;
+                zeroToOneArray[i++] = (Single)g.RealValue;
             }
 
             processor.ProcessChromosome(zeroToOneArray);

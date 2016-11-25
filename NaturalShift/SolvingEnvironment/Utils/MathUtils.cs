@@ -20,12 +20,7 @@ namespace NaturalShift.SolvingEnvironment.Utils
                 // Now figure out how far each point is from the mean
                 // So we subtract from the number the average
                 // Then raise it to the power of 2
-                Single sumOfSquares = 0.0F;
-
-                foreach (int num in nums)
-                {
-                    sumOfSquares += (Single)Math.Pow((num - avg), 2.0);
-                }
+                Single sumOfSquares = nums.Select(val => (val - avg) * (val - avg)).Sum();
 
                 // Finally divide it by n - 1 (for standard deviation variance)
                 // Or use length without subtracting one ( for population standard deviation variance)

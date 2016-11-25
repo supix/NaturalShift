@@ -1,4 +1,6 @@
-﻿using AForge.Genetic;
+﻿using GAF;
+using GAF.Operators;
+using GAF.Threading;
 using NaturalShift.Model.ProblemModel;
 using NaturalShift.Model.SolutionModel;
 using NaturalShift.SolvingEnvironment.Chromosomes;
@@ -12,7 +14,7 @@ using System;
 namespace NaturalShift.SolvingEnvironment
 {
     /// <summary>
-    /// This class hosts the evolution of a single population, until reaching the termination condition.
+    /// This class hosts the evolution of a single population, until reaching the termination condition. This class encapsulates genetic algorithm functionalities.
     /// </summary>
     internal class TheWorld
     {
@@ -20,6 +22,8 @@ namespace NaturalShift.SolvingEnvironment
 
         private readonly Problem problem;
         private readonly int populationSize;
+        private double overallBestFitness;
+        private int epochsWithoutFitnessImprovement;
 
         public TheWorld(Problem problem, int populationSize)
         {
@@ -40,56 +44,77 @@ namespace NaturalShift.SolvingEnvironment
         /// <returns>The best solution found across the evolution</returns>
         public ISolution EvolveUntil(TerminationCondition terminationCondition)
         {
+            var rnd = RandomProvider.GetThreadRandom();
             var shiftMatrix = MatrixBuilder.Build(this.problem);
             var enumerator = new IncreasingRowsRandomColumns(this.problem.Days, this.problem.Slots);
             var constraints = ConstraintsBuilder.Build(this.problem);
             var chromoProcessor = new ChromosomeProcessor(shiftMatrix, enumerator, constraints);
             var evaluator = new FitnessEvaluator(problem);
-            var fitnessFunction = new FitnessFunction(chromoProcessor, evaluator, shiftMatrix);
-            var epochIndex = 1;
-            var epochsWithoutFitnessImprovement = 0;
+            var fitnessFunction = new Fitness.FitnessFunction(chromoProcessor, evaluator, shiftMatrix);
+            var chromosomeLength = shiftMatrix.GetNumberOfUnforcedSlots();
+            const double crossoverProbability = 0.90;
+            const double mutationProbability = 0.05;
+            const int elitismPercentage = 5;
+            epochsWithoutFitnessImprovement = 0;
+            overallBestFitness = -1;
 
-            var population = new Population(
-                this.populationSize,
-                new ThreadSafeShortArrayChromosome(shiftMatrix.GetNumberOfUnforcedSlots()),
-                fitnessFunction,
-                new RouletteWheelSelection());
-            population.RunEpoch();
-
-            var overallBestChromosome = population.BestChromosome;
-            var overallBestFitness = overallBestChromosome.Fitness;
-            log.DebugFormat("Starting population. Best fitness: {0} - average {1}", overallBestFitness, population.FitnessAvg);
-
-            while (!terminationCondition(epochIndex, epochsWithoutFitnessImprovement))
+            log.Debug("Starting population.");
+            var population = new Population();
+            for (var i = 0; i < populationSize; i++)
             {
-                population.RunEpoch();
-                epochIndex++;
-
-                var bestChromosome = population.BestChromosome;
-                var bestFitness = bestChromosome.Fitness;
-                //log.DebugFormat("Epoch {0}. Best fitness: {1} - average {2} - Fitness stable from epochs: {3}",
-                //    epochIndex,
-                //    bestFitness,
-                //    population.FitnessAvg,
-                //    epochsWithoutFitnessImprovement);
-
-                if (bestFitness > overallBestFitness)
-                {
-                    log.DebugFormat("Fitness improvement! Epoch {0}. Best fitness: {1} - average {2} - Fitness stable from epochs: {3}",
-                        epochIndex,
-                        bestFitness,
-                        population.FitnessAvg,
-                        epochsWithoutFitnessImprovement);
-                    overallBestChromosome = bestChromosome;
-                    overallBestFitness = bestFitness;
-                    epochsWithoutFitnessImprovement = 0;
-                }
-                else
-                    epochsWithoutFitnessImprovement++;
+                var c = new Double[chromosomeLength];
+                for (var k = 0; k < chromosomeLength; k++)
+                    c[k] = rnd.NextDouble();
+                var ch = new Chromosome(c);
+                population.Solutions.Add(ch);
             }
 
-            overallBestChromosome.Evaluate(fitnessFunction);
+            //create the genetic operators 
+            var elite = new Elite(elitismPercentage);
+
+            var crossover = new Crossover(crossoverProbability, true)
+            {
+                CrossoverType = CrossoverType.SinglePoint
+            };
+
+            //var mutation = new SwapMutate(mutationProbability);
+            var mutation = new SwapMutate(mutationProbability);
+
+            //create the GA itself 
+            var ga = new GeneticAlgorithm(population, fitnessFunction.Evaluate);
+
+            //subscribe to the GAs Generation Complete event 
+            ga.OnGenerationComplete += Ga_OnGenerationComplete;
+
+            //add the operators to the ga process pipeline 
+            ga.Operators.Add(elite);
+            ga.Operators.Add(crossover);
+            ga.Operators.Add(mutation);
+
+            //run the GA 
+            ga.Run((pop, currentGeneration, currentEvaluation) =>
+            {
+                return terminationCondition(currentGeneration, epochsWithoutFitnessImprovement);
+            });
+
+            population.GetTop(1)[0].Evaluate(fitnessFunction.Evaluate);
             return SolutionBuilder.Build(overallBestFitness, shiftMatrix);
+        }
+
+        private void Ga_OnGenerationComplete(object sender, GaEventArgs e)
+        {
+            if (e.Population.MaximumFitness > overallBestFitness)
+            {
+                log.DebugFormat("Fitness improvement! Epoch {0}. Best fitness: {1} - average {2} - Fitness stable from epochs: {3}",
+                    e.Generation,
+                    e.Population.MaximumFitness,
+                    e.Population.AverageFitness,
+                    epochsWithoutFitnessImprovement);
+                overallBestFitness = e.Population.MaximumFitness;
+                epochsWithoutFitnessImprovement = 0;
+            }
+            else
+                epochsWithoutFitnessImprovement++;
         }
 
         public delegate bool TerminationCondition(int epochs, int epochsWithoutFitnessImprovement);
