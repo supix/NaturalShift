@@ -69,7 +69,7 @@ namespace NaturalShift.SolvingEnvironment
                 population.Solutions.Add(ch);
             }
 
-            //create the genetic operators 
+            //create the genetic operators
             var elite = new Elite(elitismPercentage);
 
             var crossover = new Crossover(crossoverProbability, true)
@@ -79,18 +79,18 @@ namespace NaturalShift.SolvingEnvironment
 
             var mutation = new SwapMutate(mutationProbability);
 
-            //create the GA itself 
+            //create the GA itself
             var ga = new GeneticAlgorithm(population, fitnessFunction.Evaluate);
 
-            //subscribe to the GAs Generation Complete event 
+            //subscribe to the GAs Generation Complete event
             ga.OnGenerationComplete += Ga_OnGenerationComplete;
 
-            //add the operators to the ga process pipeline 
+            //add the operators to the ga process pipeline
             ga.Operators.Add(elite);
             ga.Operators.Add(crossover);
             ga.Operators.Add(mutation);
 
-            //run the GA 
+            //run the GA
             ga.Run((pop, currentGeneration, currentEvaluation) =>
             {
                 return terminationCondition(currentGeneration, epochsWithoutFitnessImprovement, population.MaximumFitness, population.AverageFitness);

@@ -9,7 +9,7 @@ namespace NaturalShift.SolvingEnvironment
     internal static class SolutionBuilder
     {
         private static readonly IInternalLogger log = LoggerProvider.LoggerFor(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        
+
         public static ISolution Build(Double fitness, ShiftMatrix m)
         {
             var sw = new Stopwatch();

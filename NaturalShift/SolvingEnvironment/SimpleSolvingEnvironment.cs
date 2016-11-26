@@ -71,6 +71,7 @@ namespace NaturalShift.SolvingEnvironment
         }
 
         public delegate void FitnessImprovement(double bestFitness, double averageFitness);
+
         public event FitnessImprovement OnFitnessImprovement;
     }
 }

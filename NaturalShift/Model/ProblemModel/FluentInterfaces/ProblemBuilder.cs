@@ -55,10 +55,12 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         private SlotClosure slotClosure;
 
         #region problem days, slots, items
+
         private int days;
         private int slots;
         private int items;
-        #endregion
+
+        #endregion problem days, slots, items
 
         #region CfgConsecutiveSlotAptitude
 
@@ -67,6 +69,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         private int consecutiveSlotAptitudes_fromPreceedingSlot;
         private int consecutiveSlotAptitudes_toFollowingSlot;
         private int consecutiveSlotAptitudes_toPreceedingSlot;
+
         #endregion CfgConsecutiveSlotAptitude
 
         #region CfgWeight
@@ -87,6 +90,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         private int cfgSlotValue_slot;
         private Single cfgSlotValue_value;
+
         #endregion CfgSlotValue
 
         #region CfgStartupEffort
@@ -110,6 +114,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         private Single cfgCrossItemAptitude_multiplier;
         private int cfgCrossItemAptitude_slot1;
         private int cfgCrossItemAptitude_slot2;
+
         #endregion CfgCrossItemAptitude
 
         ICfgSlotClosure IConfigurableProblem.Closing
@@ -195,6 +200,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         {
             return this;
         }
+
         IConfigurableProblem ICfgDayForUnavailItem.Always()
         {
             this.itemUnavailability.Days.From = 0;
@@ -334,11 +340,13 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
             return this;
         }
+
         ICfgDayForUnavailItem ICfgLastSlotForUnavailItem.To(int slot)
         {
             this.itemUnavailability.Slots.To = slot;
             return this;
         }
+
         ICfgFollowingSlotForConsSlotApt ICfgLastPrecSlotForConsSlotApt.To(int slot)
         {
             consecutiveSlotAptitudes_toPreceedingSlot = slot;
@@ -352,6 +360,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
             return this;
         }
+
         IConfigurableProblem ICfgLastDayOfClosure.To(int day)
         {
             this.slotClosure.Days.To = day;
@@ -366,6 +375,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
             return this;
         }
+
         ICfgLastDayForUnavailItem ICfgMultipleDaysForUnavailItem.From(int day)
         {
             this.itemUnavailability.Days.From = day;
@@ -378,12 +388,14 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
             return this;
         }
+
         ICfgLastItemForAptitude ICfgMultipleItemsForAptitude.From(int item)
         {
             this.itemAptitude.Items.From = item;
 
             return this;
         }
+
         ICfgLastUnavailableItem ICfgMultipleItemsForUnavailItem.From(int item)
         {
             this.itemUnavailability.Items.From = item;
@@ -538,6 +550,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
             return this;
         }
+
         IConfigurableProblem ICfgLastFollowingSlotForConsSlotApt.To(int slot)
         {
             consecutiveSlotAptitudes_toFollowingSlot = slot;
@@ -545,27 +558,32 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
             return this;
         }
+
         ICfgSlotForUnavailItem ICfgLastUnavailableItem.To(int item)
         {
             this.itemUnavailability.Items.To = item;
             return this;
         }
+
         ICfgLastDayOfClosure ICfgMultipleDaysOfClosure.From(int day)
         {
             this.slotClosure.Days.From = day;
             return this;
         }
+
         ICfgLastSlotForUnavailItem ICfgMultipleSlotsForUnavailItem.From(int slot)
         {
             this.itemUnavailability.Slots.From = slot;
             return this;
         }
+
         ICfgLastFollowingSlotForConsSlotApt ICfgMultipleFollowingSlotForConsSlotApt.From(int slot)
         {
             consecutiveSlotAptitudes_fromFollowingSlot = slot;
 
             return this;
         }
+
         ICfgItemForAptitude IConfigurableProblem.AssigningAptitude(float aptitude)
         {
             this.itemAptitude = new ItemAptitude();
@@ -670,6 +688,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             this.slotClosure.Slots.To = slot;
             return this;
         }
+
         #region Private methods for resolution
 
         private void resolveCrossItemAptitudeConfiguration()
@@ -739,6 +758,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         {
             this.problem.SetSlotWeight(this.slotOrItemWeight_idx, this.slotOrItemWeight_weight);
         }
+
         #endregion Private methods for resolution
     }
 }

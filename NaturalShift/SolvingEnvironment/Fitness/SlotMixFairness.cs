@@ -1,5 +1,4 @@
 ﻿using NaturalShift.SolvingEnvironment.Matrix;
-using NaturalShift.SolvingEnvironment.Utils;
 using System;
 using System.Diagnostics;
 

@@ -9,7 +9,7 @@ namespace NaturalShift.SolvingEnvironment
     internal class ComputationTerminationManager
     {
         private static readonly IInternalLogger log = LoggerProvider.LoggerFor(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        
+
         private readonly int maxComputationTimeInMilliseconds;
         private readonly int maxEpochs;
         private readonly int maxEpochsWithoutFitnessImprovement;
