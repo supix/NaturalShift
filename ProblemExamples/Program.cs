@@ -9,6 +9,7 @@ namespace ProblemExamples
         private static void Main(string[] args)
         {
             log4net.Config.BasicConfigurator.Configure();
+            //log4net.Config.XmlConfigurator.Configure();
 
             var problem = ProblemBuilder.Configure()
                 .WithDays(30)
@@ -41,7 +42,7 @@ namespace ProblemExamples
                 .AssigningValue(10).ToSlot(12)
                 .AssigningValue(10).ToSlot(13)
                 .Multiplying.AptitudeBy(0.05F).WhenSlots().From(5).To(9).IsFollowedBySlots().From(0).To(4)
-                .Multiplying.AptitudeBy(3).WhenSlots().From(10).To(13).IsFollowedBySlots().From(0).To(4)
+                .Multiplying.AptitudeBy(1.5F).WhenSlots().From(10).To(13).IsFollowedBySlots().From(0).To(4)
                 //.Making.AllItems().UnavailableForAllSlots().InDay(10)
                 //.AssigningAptitude(0).ToItem(1).ForSlots().From(6).To(12).InDays().From(14).To(29)
                 //.AssigningAptitude(0).ToItem(2).ForSlots().From(7).To(13).InDays().From(0).To(19)
@@ -66,9 +67,9 @@ namespace ProblemExamples
                 .WithPopulationSize(100)
                 //.RenewingPopulationAfterEpochs(0)
                 .RenewingPopulationAfterSameFitnessEpochs(5)
-                .StoppingComputationAfter(10).Seconds
+                .StoppingComputationAfter(10).Minutes
                 //.UsingExactlyANumberOfThreadsEqualTo(4)
-                .UsingExactlyANumberOfThreadsEqualTo(1)
+                //.UsingExactlyANumberOfThreadsEqualTo(1)
                 .Build();
 
             var solution = solvingEnvironment.Solve();

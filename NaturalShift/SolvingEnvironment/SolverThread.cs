@@ -16,8 +16,14 @@ namespace NaturalShift.SolvingEnvironment
 
         internal SolverThread(Problem problem, EnvironmentConfig environmentConfig)
         {
-            this.solvingEnvironment = new SimpleSolvingEnvironment(problem, environmentConfig);
+            this.solvingEnvironment = new SimpleSolvingEnvironment(problem, environmentConfig, false);
+            this.solvingEnvironment.OnFitnessImprovement += SolvingEnvironment_OnFitnessImprovement;
             this.thread = null;
+        }
+
+        private void SolvingEnvironment_OnFitnessImprovement(double bestFitness, double averageFitness)
+        {
+            OnFitnessImprovement?.Invoke(bestFitness, averageFitness);
         }
 
         internal void Solve()
@@ -31,5 +37,8 @@ namespace NaturalShift.SolvingEnvironment
             this.bestSolution = solvingEnvironment.Solve();
             this.thread = null;
         }
+
+        public delegate void FitnessImprovement(double bestFitness, double averageFitness);
+        public event FitnessImprovement OnFitnessImprovement;
     }
 }

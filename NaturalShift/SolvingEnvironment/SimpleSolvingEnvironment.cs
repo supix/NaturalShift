@@ -13,9 +13,10 @@ namespace NaturalShift.SolvingEnvironment
         private readonly ComputationTerminationManager computationTerminationManager;
         private readonly EnvironmentConfig environmentConfig;
         private readonly Problem problem;
+        private readonly bool logFitnessImprovement;
 
         public SimpleSolvingEnvironment(Problem problem,
-            EnvironmentConfig environmentConfig)
+            EnvironmentConfig environmentConfig, bool logFitnessImprovement = true)
         {
             if (problem == null)
                 throw new ArgumentNullException(nameof(problem));
@@ -29,12 +30,14 @@ namespace NaturalShift.SolvingEnvironment
                 environmentConfig.MaxEpochsWithoutFitnessImprovement);
             this.environmentConfig = environmentConfig;
             this.problem = problem;
+            this.logFitnessImprovement = logFitnessImprovement;
         }
 
         public ISolution Solve()
         {
             var totalElapsedEpochs = 0;
             ISolution bestSolutionSoFar = null;
+            double bestFitnessSoFar = 0;
             var sw = new Stopwatch();
             sw.Start();
 
@@ -42,8 +45,20 @@ namespace NaturalShift.SolvingEnvironment
             {
                 var theWorld = new TheWorld(this.problem, this.environmentConfig.PopulationSize);
 
-                var bestSolution = theWorld.EvolveUntil((epochs, epochsWithoutFitnessImprovement) =>
+                var bestSolution = theWorld.EvolveUntil((epochs, epochsWithoutFitnessImprovement, bestFitness, averageFitness) =>
                 {
+                    if (bestFitness > bestFitnessSoFar)
+                    {
+                        bestFitnessSoFar = bestFitness;
+                        if (logFitnessImprovement)
+                            log.DebugFormat("Fitness improvement! Epoch {0}. Best fitness: {1} - average {2} - Fitness stable from epochs: {3}",
+                                epochs,
+                                bestFitness,
+                                averageFitness,
+                                epochsWithoutFitnessImprovement);
+                        OnFitnessImprovement?.Invoke(bestFitness, averageFitness);
+                    }
+
                     totalElapsedEpochs++;
                     return computationTerminationManager.Terminated((int)sw.ElapsedMilliseconds, totalElapsedEpochs, epochsWithoutFitnessImprovement);
                 });
@@ -54,5 +69,8 @@ namespace NaturalShift.SolvingEnvironment
 
             return bestSolutionSoFar;
         }
+
+        public delegate void FitnessImprovement(double bestFitness, double averageFitness);
+        public event FitnessImprovement OnFitnessImprovement;
     }
 }

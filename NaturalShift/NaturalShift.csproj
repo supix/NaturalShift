@@ -107,7 +107,8 @@
     <Compile Include="SolvingEnvironment\Constraints\MaxWorkingDaysEnforcer.cs" />
     <Compile Include="SolvingEnvironment\Constraints\NoUbiquityOverIncompatibleSlots.cs" />
     <Compile Include="SolvingEnvironment\EnvironmentConfig.cs" />
-    <Compile Include="SolvingEnvironment\Fitness\AptitudeFulfilled.cs" />
+    <Compile Include="SolvingEnvironment\Fitness\InitialAptitudeFulfilled.cs" />
+    <Compile Include="SolvingEnvironment\Fitness\CurrentAptitudeFulfilled.cs" />
     <Compile Include="SolvingEnvironment\Fitness\BusySlotsAreGood.cs" />
     <Compile Include="SolvingEnvironment\Fitness\FitnessEvaluator.cs" />
     <Compile Include="SolvingEnvironment\Fitness\FitnessFunction.cs" />

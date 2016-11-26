@@ -1,11 +1,12 @@
 ﻿using NaturalShift.SolvingEnvironment.Matrix;
+using NaturalShift.SolvingEnvironment.Utils;
 using System;
 using System.Diagnostics;
 using System.Linq;
 
 namespace NaturalShift.SolvingEnvironment.Fitness
 {
-    internal class AptitudeFulfilled : IFitnessDimension
+    internal class InitialAptitudeFulfilled : IFitnessDimension
     {
         private ShiftMatrix lastMatrix = null;
         private Single lastNormalizer;
@@ -20,7 +21,7 @@ namespace NaturalShift.SolvingEnvironment.Fitness
                 {
                     var all = matrix[day, slot];
                     if ((!all.Forced) && (all.ChosenItem.HasValue))
-                        value += all.CurrentAptitudes[all.ChosenItem.Value];
+                        value += all.InitialAptitudes[all.ChosenItem.Value];
                 }
 
             var result = value / lastNormalizer;

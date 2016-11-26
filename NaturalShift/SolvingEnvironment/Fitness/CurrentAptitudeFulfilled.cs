@@ -2,19 +2,14 @@
 using NaturalShift.SolvingEnvironment.Utils;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace NaturalShift.SolvingEnvironment.Fitness
 {
-    internal class BusySlotsAreGood : IFitnessDimension
+    internal class CurrentAptitudeFulfilled : IFitnessDimension
     {
-        private readonly Single[] slotValues;
         private ShiftMatrix lastMatrix = null;
         private Single lastNormalizer;
-
-        public BusySlotsAreGood(Single[] slotValues)
-        {
-            this.slotValues = slotValues;
-        }
 
         public float Evaluate(ShiftMatrix matrix)
         {
@@ -26,7 +21,7 @@ namespace NaturalShift.SolvingEnvironment.Fitness
                 {
                     var all = matrix[day, slot];
                     if ((!all.Forced) && (all.ChosenItem.HasValue))
-                        value += (slotValues != null ? slotValues[slot] : 1);
+                        value += all.CurrentAptitudes[all.ChosenItem.Value];
                 }
 
             var result = value / lastNormalizer;
@@ -46,9 +41,8 @@ namespace NaturalShift.SolvingEnvironment.Fitness
                 for (int day = 0; day < matrix.Days; day++)
                     for (int slot = 0; slot < matrix.Slots; slot++)
                     {
-                        var all = matrix[day, slot];
-                        if (!all.Forced)
-                            lastNormalizer += (slotValues != null ? slotValues[slot] : 1);
+                        if (!matrix[day, slot].Forced)
+                            lastNormalizer += matrix[day, slot].InitialAptitudes.Max();
                     }
             }
         }

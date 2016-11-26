@@ -77,7 +77,6 @@ namespace NaturalShift.SolvingEnvironment
                 CrossoverType = CrossoverType.SinglePoint
             };
 
-            //var mutation = new SwapMutate(mutationProbability);
             var mutation = new SwapMutate(mutationProbability);
 
             //create the GA itself 
@@ -94,7 +93,7 @@ namespace NaturalShift.SolvingEnvironment
             //run the GA 
             ga.Run((pop, currentGeneration, currentEvaluation) =>
             {
-                return terminationCondition(currentGeneration, epochsWithoutFitnessImprovement);
+                return terminationCondition(currentGeneration, epochsWithoutFitnessImprovement, population.MaximumFitness, population.AverageFitness);
             });
 
             population.GetTop(1)[0].Evaluate(fitnessFunction.Evaluate);
@@ -105,11 +104,11 @@ namespace NaturalShift.SolvingEnvironment
         {
             if (e.Population.MaximumFitness > overallBestFitness)
             {
-                log.DebugFormat("Fitness improvement! Epoch {0}. Best fitness: {1} - average {2} - Fitness stable from epochs: {3}",
-                    e.Generation,
-                    e.Population.MaximumFitness,
-                    e.Population.AverageFitness,
-                    epochsWithoutFitnessImprovement);
+                //log.DebugFormat("Fitness improvement! Epoch {0}. Best fitness: {1} - average {2} - Fitness stable from epochs: {3}",
+                //    e.Generation,
+                //    e.Population.MaximumFitness,
+                //    e.Population.AverageFitness,
+                //    epochsWithoutFitnessImprovement);
                 overallBestFitness = e.Population.MaximumFitness;
                 epochsWithoutFitnessImprovement = 0;
             }
@@ -117,6 +116,6 @@ namespace NaturalShift.SolvingEnvironment
                 epochsWithoutFitnessImprovement++;
         }
 
-        public delegate bool TerminationCondition(int epochs, int epochsWithoutFitnessImprovement);
+        public delegate bool TerminationCondition(int epochs, int epochsWithoutFitnessImprovement, double bestFitness, double averageFitness);
     }
 }
