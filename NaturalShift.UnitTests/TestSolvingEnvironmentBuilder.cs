@@ -95,6 +95,18 @@ namespace NaturalShift.UnitTests
         }
 
         [Test]
+        [Repeat(10)]
+        public void MaxComputationTimeInHoursIsCorrectlyConfigured()
+        {
+            var hours = rnd.Next(100);
+            var builder = (SolvingEnvironmentBuilder)SolvingEnvironmentBuilder.Configure()
+                .ForProblem(null)
+                .StoppingComputationAfter(hours).Hours;
+
+            Assert.That(builder.EnvironmentConfig.MaxExecutionTimeMilliseconds, Is.EqualTo(hours * 60 * 60 * 1000));
+        }
+
+        [Test]
         [Repeat(100)]
         public void MaxEpochsAreCorrectlyConfigured()
         {

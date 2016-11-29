@@ -66,8 +66,8 @@ namespace ProblemExamples
                 .ForProblem(problem)
                 .WithPopulationSize(100)
                 //.RenewingPopulationAfterEpochs(0)
-                .RenewingPopulationAfterSameFitnessEpochs(5)
-                .StoppingComputationAfter(10).Minutes
+                .RenewingPopulationAfterSameFitnessEpochs(10)
+                .StoppingComputationAfter(30).Minutes
                 //.UsingExactlyANumberOfThreadsEqualTo(4)
                 //.UsingExactlyANumberOfThreadsEqualTo(1)
                 .Build();

@@ -5,5 +5,6 @@
         IConfigurableSolvingEnvironment Milliseconds { get; }
         IConfigurableSolvingEnvironment Seconds { get; }
         IConfigurableSolvingEnvironment Minutes { get; }
+        IConfigurableSolvingEnvironment Hours { get; }
     }
 }

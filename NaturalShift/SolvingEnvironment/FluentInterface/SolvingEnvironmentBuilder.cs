@@ -27,7 +27,7 @@ namespace NaturalShift.SolvingEnvironment
         {
             get
             {
-                this.environmentConfig.MaxExecutionTimeMilliseconds = elapsed * 1000;
+                this.environmentConfig.MaxExecutionTimeMilliseconds = (int)new TimeSpan(0, 0, elapsed).TotalMilliseconds;
 
                 return this;
             }
@@ -37,7 +37,17 @@ namespace NaturalShift.SolvingEnvironment
         {
             get
             {
-                this.environmentConfig.MaxExecutionTimeMilliseconds = elapsed * 1000 * 60;
+                this.environmentConfig.MaxExecutionTimeMilliseconds = (int)new TimeSpan(0, elapsed, 0).TotalMilliseconds;
+
+                return this;
+            }
+        }
+
+        IConfigurableSolvingEnvironment IConfiguringTime.Hours
+        {
+            get
+            {
+                this.environmentConfig.MaxExecutionTimeMilliseconds = (int)new TimeSpan(elapsed, 0, 0).TotalMilliseconds;
 
                 return this;
             }
