@@ -65,6 +65,12 @@
     <Compile Include="Model\ProblemModel\FluentInterfaces\CrossItemAptitude\ICfgFirstSlotForCrossItemApt.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\CrossItemAptitude\ICfgSecondItemForCrossItemApt.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\CrossItemAptitude\ICfgSecondSlotForCrossItemApt.cs" />
+    <Compile Include="Model\ProblemModel\FluentInterfaces\SlotAndItemWeight\ICfgLastItemForItemWeight.cs" />
+    <Compile Include="Model\ProblemModel\FluentInterfaces\SlotAndItemWeight\ICfgLastSlotForSlotWeight.cs" />
+    <Compile Include="Model\ProblemModel\FluentInterfaces\SlotValue\ICfgLastSlotForSlotValue.cs" />
+    <Compile Include="Model\ProblemModel\FluentInterfaces\SlotValue\ICfgMultipleSlotsForSlotValue.cs" />
+    <Compile Include="Model\ProblemModel\FluentInterfaces\SlotAndItemWeight\ICfgMultipleItemsForItemWeight.cs" />
+    <Compile Include="Model\ProblemModel\FluentInterfaces\SlotAndItemWeight\ICfgMultipleSlotsForSlotWeight.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\UnavailableItems\ICfgItemForUnavailItem.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\ICfgItemStartupEffort.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\UnavailableItems\ICfgDayForUnavailItem.cs" />
@@ -77,7 +83,7 @@
     <Compile Include="Model\ProblemModel\FluentInterfaces\UnavailableItems\ICfgSlotForUnavailItem.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\ICfgSlotLength.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\SlotValue\ICfgSlotValue.cs" />
-    <Compile Include="Model\ProblemModel\FluentInterfaces\SlotWeight\ICfgWeight.cs" />
+    <Compile Include="Model\ProblemModel\FluentInterfaces\SlotAndItemWeight\ICfgWeight.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\SlotClosure\ICfgLastDayOfClosure.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\SlotClosure\ICfgLastSlotClosure.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\IConfigurableProblem.cs" />

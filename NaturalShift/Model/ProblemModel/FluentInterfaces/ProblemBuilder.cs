@@ -47,7 +47,13 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         ICfgSecondSlotForCrossItemApt,
         ICfgLastPrecSlotForConsSlotApt,
         ICfgMultipleFollowingSlotForConsSlotApt,
-        ICfgLastFollowingSlotForConsSlotApt
+        ICfgLastFollowingSlotForConsSlotApt,
+        ICfgMultipleSlotsForSlotValue,
+        ICfgLastSlotForSlotValue,
+        ICfgMultipleSlotsForSlotWeight,
+        ICfgMultipleItemsForItemWeight,
+        ICfgLastItemForItemWeight,
+        ICfgLastSlotForSlotWeight
     {
         private ItemAptitude itemAptitude;
         private ItemUnavailability itemUnavailability;
@@ -74,7 +80,8 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         #region CfgWeight
 
-        private int slotOrItemWeight_idx;
+        private int slotOrItemWeight_from;
+        private int slotOrItemWeight_to;
         private Single slotOrItemWeight_weight;
 
         #endregion CfgWeight
@@ -88,8 +95,9 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         #region CfgSlotValue
 
-        private int cfgSlotValue_slot;
         private Single cfgSlotValue_value;
+        private int cfgSlotValue_fromSlot;
+        private int cfgSlotValue_toSlot;
 
         #endregion CfgSlotValue
 
@@ -529,7 +537,8 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         IConfigurableProblem ICfgWeight.ToItem(int item)
         {
-            this.slotOrItemWeight_idx = item;
+            this.slotOrItemWeight_from = item;
+            this.slotOrItemWeight_to = item;
             this.resolveItemWeightConfiguration();
 
             return this;
@@ -537,7 +546,8 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         IConfigurableProblem ICfgSlotValue.ToSlot(int slot)
         {
-            this.cfgSlotValue_slot = slot;
+            this.cfgSlotValue_fromSlot = slot;
+            this.cfgSlotValue_toSlot = slot;
             this.resolveSlotValueConfiguration();
 
             return this;
@@ -545,7 +555,8 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         IConfigurableProblem ICfgWeight.ToSlot(int slot)
         {
-            this.slotOrItemWeight_idx = slot;
+            this.slotOrItemWeight_from = slot;
+            this.slotOrItemWeight_to = slot;
             this.resolveSlotWeightConfiguration();
 
             return this;
@@ -730,7 +741,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         private void resolveItemWeightConfiguration()
         {
-            this.problem.SetItemWeight(this.slotOrItemWeight_idx, this.slotOrItemWeight_weight);
+            this.problem.SetItemWeight(this.slotOrItemWeight_from, this.slotOrItemWeight_to, this.slotOrItemWeight_weight);
         }
 
         private void resolveSlotClosureConfiguration()
@@ -751,14 +762,101 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         private void resolveSlotValueConfiguration()
         {
-            this.problem.SetSlotValue(this.cfgSlotValue_value, this.cfgSlotValue_slot);
+            this.problem.SetSlotValue(this.cfgSlotValue_value, this.cfgSlotValue_fromSlot, this.cfgSlotValue_toSlot);
         }
 
         private void resolveSlotWeightConfiguration()
         {
-            this.problem.SetSlotWeight(this.slotOrItemWeight_idx, this.slotOrItemWeight_weight);
+            this.problem.SetSlotWeight(this.slotOrItemWeight_from, this.slotOrItemWeight_to, this.slotOrItemWeight_weight);
         }
 
         #endregion Private methods for resolution
+
+        ICfgMultipleSlotsForSlotValue ICfgSlotValue.ToSlots()
+        {
+            return this;
+        }
+
+        IConfigurableProblem ICfgSlotValue.ToAllSlots()
+        {
+            cfgSlotValue_fromSlot = 0;
+            cfgSlotValue_toSlot = this.problem.Slots - 1;
+            resolveSlotValueConfiguration();
+
+            return this;
+        }
+
+        ICfgLastSlotForSlotValue ICfgMultipleSlotsForSlotValue.From(int slot)
+        {
+            cfgSlotValue_fromSlot = slot;
+
+            return this;
+        }
+
+        IConfigurableProblem ICfgLastSlotForSlotValue.To(int slot)
+        {
+            cfgSlotValue_toSlot = slot;
+            resolveSlotValueConfiguration();
+
+            return this;
+        }
+
+        ICfgMultipleSlotsForSlotWeight ICfgWeight.ToSlots()
+        {
+            return this;
+        }
+
+        IConfigurableProblem ICfgWeight.ToAllSlots()
+        {
+            this.slotOrItemWeight_from = 0;
+            this.slotOrItemWeight_to = this.problem.Slots - 1;
+            resolveSlotWeightConfiguration();
+
+            return this;
+        }
+
+        ICfgMultipleItemsForItemWeight ICfgWeight.ToItems()
+        {
+            return this;
+        }
+
+        IConfigurableProblem ICfgWeight.ToAllItems()
+        {
+            this.slotOrItemWeight_from = 0;
+            this.slotOrItemWeight_to = this.problem.Items - 1;
+            resolveItemWeightConfiguration();
+
+            return this;
+        }
+
+        ICfgLastSlotForSlotWeight ICfgMultipleSlotsForSlotWeight.From(int slot)
+        {
+            this.slotOrItemWeight_from = slot;
+
+            return this;
+        }
+
+        ICfgLastItemForItemWeight ICfgMultipleItemsForItemWeight.From(int item)
+        {
+            this.slotOrItemWeight_from = item;
+
+            return this;
+        }
+
+        IConfigurableProblem ICfgLastItemForItemWeight.To(int item)
+        {
+            this.slotOrItemWeight_to = item;
+            resolveItemWeightConfiguration();
+
+            return this;
+        }
+
+        IConfigurableProblem ICfgLastSlotForSlotWeight.To(int slot)
+        {
+            this.slotOrItemWeight_to = slot;
+            resolveSlotWeightConfiguration();
+
+            return this;
+        }
     }
 }

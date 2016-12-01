@@ -106,12 +106,13 @@ namespace NaturalShift.Model.ProblemModel
 
         #region Internal methods to set value optionally initializing structures
 
-        internal void SetSlotWeight(int index, float weight)
+        internal void SetSlotWeight(int from, int to, float weight)
         {
-            this.SlotWeights[index] = weight;
+            for (int i = from; i <= to; i++)
+                this.SlotWeights[i] = weight;
         }
 
-        internal void SetItemWeight(int index, float weight)
+        internal void SetItemWeight(int from, int to, float weight)
         {
             if (ItemWeights == null)
             {
@@ -121,10 +122,11 @@ namespace NaturalShift.Model.ProblemModel
 #warning the default must become a parameter
             }
 
-            this.ItemWeights[index] = weight;
+            for (int i = from; i <= to; i++)
+                this.ItemWeights[i] = weight;
         }
 
-        internal void SetSlotValue(Single value, int slot)
+        internal void SetSlotValue(Single value, int fromSlot, int toSlot)
         {
             if (SlotValues == null)
             {
@@ -134,7 +136,8 @@ namespace NaturalShift.Model.ProblemModel
 #warning the default must become a parameter
             }
 
-            this.SlotValues[slot] = value;
+            for (int i = fromSlot; i <= toSlot; i++)
+                this.SlotValues[i] = value;
         }
 
         internal void SetCompatibleSlots(int slot1, int slot2)

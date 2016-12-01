@@ -893,6 +893,112 @@ namespace NaturalShift.UnitTests
 
         [Test]
         [Repeat(1000)]
+        public void MultipleItemWeightIsCorrectlySet()
+        {
+            var items = rnd.Next(50) + 2;
+            var weight = (Single)(rnd.NextDouble() * 2);
+            var fromItem = rnd.Next(items);
+            var toItem = rnd.Next(items);
+            if (fromItem > toItem)
+            {
+                var temp = fromItem;
+                fromItem = toItem;
+                toItem = temp;
+            }
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(this.RandomFrom5To15())
+                .WithItems(items)
+                .AssigningWeight(weight).ToItems().From(fromItem).To(toItem)
+                .Build();
+
+            for (int i = fromItem; i <= toItem; i++)
+                Assert.That(problem.ItemWeights[i], Is.EqualTo(weight));
+        }
+
+        [Test]
+        [Repeat(1000)]
+        public void AllItemsWeightIsCorrectlySet()
+        {
+            var items = rnd.Next(50) + 2;
+            var weight = (Single)(rnd.NextDouble() * 2);
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(this.RandomFrom5To15())
+                .WithItems(items)
+                .AssigningWeight(weight).ToAllItems()
+                .Build();
+
+            for (int i = 0; i < problem.Items; i++)
+                Assert.That(problem.ItemWeights[i], Is.EqualTo(weight));
+        }
+
+        [Test]
+        [Repeat(1000)]
+        public void SlotWeightIsCorrectlySet()
+        {
+            var slots = rnd.Next(50) + 2;
+            var weight = (Single)(rnd.NextDouble() * 2);
+            var slot = rnd.Next(slots);
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(slots)
+                .WithItems(this.RandomFrom5To15())
+                .AssigningWeight(weight).ToSlot(slot)
+                .Build();
+
+            Assert.That(problem.SlotWeights[slot], Is.EqualTo(weight));
+        }
+
+        [Test]
+        [Repeat(1000)]
+        public void MultipleSlotWeightIsCorrectlySet()
+        {
+            var slots = rnd.Next(50) + 2;
+            var weight = (Single)(rnd.NextDouble() * 2);
+            var fromSlot = rnd.Next(slots - 2);
+            var toSlot = rnd.Next(slots - 2);
+            if (fromSlot > toSlot)
+            {
+                var temp = fromSlot;
+                fromSlot = toSlot;
+                toSlot = temp;
+            }
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(slots)
+                .WithItems(this.RandomFrom5To15())
+                .AssigningWeight(weight).ToSlots().From(fromSlot).To(toSlot)
+                .Build();
+
+            for (int i = fromSlot; i <= toSlot; i++)
+                Assert.That(problem.SlotWeights[i], Is.EqualTo(weight));
+        }
+
+        [Test]
+        [Repeat(1000)]
+        public void AllSlotsWeightIsCorrectlySet()
+        {
+            var slots = rnd.Next(50) + 2;
+            var weight = (Single)(rnd.NextDouble() * 2);
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(slots)
+                .WithItems(this.RandomFrom5To15())
+                .AssigningWeight(weight).ToAllSlots()
+                .Build();
+
+            for (int i = 0; i < problem.Slots; i++)
+                Assert.That(problem.SlotWeights[i], Is.EqualTo(weight));
+        }
+
+        [Test]
+        [Repeat(1000)]
         public void MaxConsecutiveWorkingDaysIsCorrectlySet()
         {
             var max = rnd.Next(10);
@@ -1083,7 +1189,7 @@ namespace NaturalShift.UnitTests
 
         [Test]
         [Repeat(1000)]
-        public void SlotValueIsCorrectlySet()
+        public void SingleSlotValueIsCorrectlyConfigured()
         {
             var slots = rnd.Next(50) + 2;
             var value = (Single)(rnd.NextDouble() * 2);
@@ -1101,20 +1207,46 @@ namespace NaturalShift.UnitTests
 
         [Test]
         [Repeat(1000)]
-        public void SlotWeightIsCorrectlySet()
+        public void SlotRangeValuesIsCorrectlyConfigured()
         {
-            var slots = rnd.Next(50) + 2;
-            var weight = (Single)(rnd.NextDouble() * 2);
-            var slot = rnd.Next(slots);
+            var slots = rnd.Next(50) + 3;
+            var fromSlot = rnd.Next(slots - 2) + 2;
+            var toSlot = rnd.Next(slots - 2) + 2;
+            if (fromSlot > toSlot)
+            {
+                var temp = fromSlot;
+                fromSlot = toSlot;
+                toSlot = temp;
+            }
+            var value = (Single)(rnd.NextDouble() * 2);
 
             var problem = ProblemBuilder.Configure()
                 .WithDays(this.RandomFrom5To15())
                 .WithSlots(slots)
                 .WithItems(this.RandomFrom5To15())
-                .AssigningWeight(weight).ToSlot(slot)
+                .AssigningValue(value).ToSlots().From(fromSlot).To(toSlot)
                 .Build();
 
-            Assert.That(problem.SlotWeights[slot], Is.EqualTo(weight));
+            for (int i = fromSlot; i <= toSlot; i++)
+                Assert.That(problem.SlotValues[i], Is.EqualTo(value));
+        }
+
+        [Test]
+        [Repeat(1000)]
+        public void AllSlotValuesIsCorrectlyConfigured()
+        {
+            var slots = rnd.Next(50) + 3;
+            var value = (Single)(rnd.NextDouble() * 2);
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(slots)
+                .WithItems(this.RandomFrom5To15())
+                .AssigningValue(value).ToAllSlots()
+                .Build();
+
+            for (int i = 0; i < slots; i++)
+                Assert.That(problem.SlotValues[i], Is.EqualTo(value));
         }
 
         [Test]
