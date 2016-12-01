@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaturalShift.UnitTests", "N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProblemExamples", "ProblemExamples\ProblemExamples.csproj", "{A21D46E2-6341-4FFD-8A0E-EBF4E61883CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaturalShift.IntegrationTests", "NaturalShift.IntegrationTests\NaturalShift.IntegrationTests.csproj", "{4DE68520-27C7-4A0C-9419-D7EA9935E3AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A21D46E2-6341-4FFD-8A0E-EBF4E61883CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A21D46E2-6341-4FFD-8A0E-EBF4E61883CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A21D46E2-6341-4FFD-8A0E-EBF4E61883CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DE68520-27C7-4A0C-9419-D7EA9935E3AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DE68520-27C7-4A0C-9419-D7EA9935E3AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DE68520-27C7-4A0C-9419-D7EA9935E3AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DE68520-27C7-4A0C-9419-D7EA9935E3AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
