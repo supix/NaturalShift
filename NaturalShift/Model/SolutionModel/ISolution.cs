@@ -13,6 +13,11 @@
         double Fitness { get; }
 
         /// <summary>
+        /// Indicates how many solutions have been approximately evaluated to compute the current instance
+        /// </summary>
+        int EvaluatedSolutions { get; }
+
+        /// <summary>
         /// Returns solution in a human readable format
         /// </summary>
         /// <returns>The string to be printed</returns>

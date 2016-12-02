@@ -10,7 +10,7 @@ namespace NaturalShift.SolvingEnvironment
     {
         private static readonly IInternalLogger log = LoggerProvider.LoggerFor(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static ISolution Build(Double fitness, ShiftMatrix m)
+        public static ISolution Build(Double fitness, ShiftMatrix m, int evaluatedSolutions)
         {
             var sw = new Stopwatch();
             sw.Start();
@@ -35,7 +35,8 @@ namespace NaturalShift.SolvingEnvironment
             return new Solution()
             {
                 Fitness = fitness,
-                Allocations = r
+                Allocations = r,
+                EvaluatedSolutions = evaluatedSolutions
             };
         }
     }

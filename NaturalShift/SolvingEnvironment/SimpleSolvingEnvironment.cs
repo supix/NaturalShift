@@ -38,6 +38,7 @@ namespace NaturalShift.SolvingEnvironment
             var totalElapsedEpochs = 0;
             ISolution bestSolutionSoFar = null;
             double bestFitnessSoFar = 0;
+            int overallEvaluatedSolutions = 0;
             var sw = new Stopwatch();
             sw.Start();
 
@@ -63,11 +64,18 @@ namespace NaturalShift.SolvingEnvironment
                     return computationTerminationManager.Terminated((int)sw.ElapsedMilliseconds, totalElapsedEpochs, epochsWithoutFitnessImprovement);
                 });
 
+                overallEvaluatedSolutions += bestSolution.EvaluatedSolutions;
+
                 if ((bestSolutionSoFar == null) || (bestSolutionSoFar.Fitness < bestSolution.Fitness))
                     bestSolutionSoFar = bestSolution;
             } while (!computationTerminationManager.Terminated((int)sw.ElapsedMilliseconds, totalElapsedEpochs));
 
-            return bestSolutionSoFar;
+            return new Solution()
+            {
+                Fitness = bestSolutionSoFar.Fitness,
+                Allocations = bestSolutionSoFar.Allocations,
+                EvaluatedSolutions = overallEvaluatedSolutions
+            };
         }
 
         public delegate void FitnessImprovement(double bestFitness, double averageFitness);

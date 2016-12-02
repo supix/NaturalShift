@@ -23,6 +23,7 @@ namespace NaturalShift.SolvingEnvironment
         private readonly Problem problem;
         private readonly int populationSize;
         private double overallBestFitness;
+        private int epochs;
         private int epochsWithoutFitnessImprovement;
 
         public TheWorld(Problem problem, int populationSize)
@@ -55,6 +56,7 @@ namespace NaturalShift.SolvingEnvironment
             const double crossoverProbability = 0.90;
             const double mutationProbability = 0.05;
             const int elitismPercentage = 5;
+            epochs = 1;
             epochsWithoutFitnessImprovement = 0;
             overallBestFitness = -1;
 
@@ -97,11 +99,12 @@ namespace NaturalShift.SolvingEnvironment
             });
 
             population.GetTop(1)[0].Evaluate(fitnessFunction.Evaluate);
-            return SolutionBuilder.Build(overallBestFitness, shiftMatrix);
+            return SolutionBuilder.Build(overallBestFitness, shiftMatrix, epochs * population.PopulationSize);
         }
 
         private void Ga_OnGenerationComplete(object sender, GaEventArgs e)
         {
+            epochs++;
             if (e.Population.MaximumFitness > overallBestFitness)
             {
                 //log.DebugFormat("Fitness improvement! Epoch {0}. Best fitness: {1} - average {2} - Fitness stable from epochs: {3}",

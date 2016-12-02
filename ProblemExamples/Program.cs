@@ -55,7 +55,7 @@ namespace ProblemExamples
                 .WithPopulationSize(100)
                 //.RenewingPopulationAfterEpochs(0)
                 .RenewingPopulationAfterSameFitnessEpochs(10)
-                .StoppingComputationAfter(30).Minutes
+                .StoppingComputationAfter(1).Minutes
                 //.UsingExactlyANumberOfThreadsEqualTo(4)
                 //.UsingExactlyANumberOfThreadsEqualTo(1)
                 .Build();

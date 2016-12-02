@@ -52,7 +52,12 @@ namespace NaturalShift.SolvingEnvironment
 
             var bestSolution = solvers.OrderByDescending(s => s.BestSolution.Fitness).First().BestSolution;
 
-            return bestSolution;
+            return new Solution()
+            {
+                Fitness = bestSolution.Fitness,
+                Allocations = bestSolution.Allocations,
+                EvaluatedSolutions = solvers.Sum(s => s.BestSolution.EvaluatedSolutions)
+            };
         }
 
         private void Solver_OnFitnessImprovement(double bestFitness, double averageFitness)
