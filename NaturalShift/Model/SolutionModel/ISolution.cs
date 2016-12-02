@@ -5,12 +5,12 @@
         /// <summary>
         /// The matrix [item, day] whose value is the slot index covered (if any).
         /// </summary>
-        int?[,] Allocations { get; set; }
+        int?[,] Allocations { get; }
 
         /// <summary>
         /// The fitness of the solution
         /// </summary>
-        double Fitness { get; set; }
+        double Fitness { get; }
 
         /// <summary>
         /// Returns solution in a human readable format
