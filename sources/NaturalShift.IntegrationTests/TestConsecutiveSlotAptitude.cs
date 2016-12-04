@@ -2,10 +2,6 @@
 using NaturalShift.SolvingEnvironment;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NaturalShift.IntegrationTests
 {
@@ -60,7 +56,7 @@ namespace NaturalShift.IntegrationTests
                 for (int day = 0; day < problem.Days - 1; day++)
                     if ((solution.Allocations[item, day] >= fromSlot1) &&
                         ((solution.Allocations[item, day] <= toSlot1)))
-                    Assert.That(solution.Allocations[item, day + 1], Is.Null.Or.Not.InRange(fromSlot2, toSlot2));
+                        Assert.That(solution.Allocations[item, day + 1], Is.Null.Or.Not.InRange(fromSlot2, toSlot2));
         }
     }
 }
