@@ -51,7 +51,7 @@ namespace NaturalShift.IntegrationTests
                 .ForProblem(problem)
                 .WithPopulationSize(100)
                 .RenewingPopulationAfterSameFitnessEpochs(10)
-                .StoppingComputationAfter(500).Milliseconds
+                .StoppingComputationAfter(1).Milliseconds
                 .Build();
 
             var solution = solvingEnvironment.Solve();
