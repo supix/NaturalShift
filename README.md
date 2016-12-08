@@ -1,6 +1,37 @@
 # What is NaturalShift?
-NaturalShift is a .NET library useful to compute workshifts. Computation is based on genetic algoritms. Number of days, shifts and shifters can be configured. The library is released under the terms of AGPL-3.0 license.
-# A simple example
-As an example, let's take a typical workshift by dividing a day into three eight-hour shifts, to cover the 24 hours. Each day, there are 5 morning shifts, 5 afternoon shifts, 4 overnight shifts: there is a total of 14 shifts to be arranged each day. The scheme is 30 days long. This setting is shown in the picture.
-<here the 5-5-4workshift image>
-18 employees concur to fill the scheme. Let's suppose that employees cannot work longer than 5 consecutive days. Whenever an employee performs five consecutive working days, she must rest 2 days. The workshift scheme appears as follows.
+NaturalShift is a .NET library useful to compute workshifts. Computation is based on genetic algoritms. Number of days, shifts and shifters can be configured.
+
+# Quick example
+The following code starts computation of a workshift scheme 30 days long, with 14 shifts and 18 employees. The computation lasts 60 seconds.
+
+```C#
+var problem = ProblemBuilder.Configure()
+  .WithDays(30)
+  .WithSlots(14)
+  .WithItems(18)
+  .WithMaxConsecutiveWorkingDaysEqualTo(5)
+  .RestAfterMaxWorkingDaysReached(2)
+  .Build();
+  
+var solvingEnvironment = SolvingEnvironmentBuilder.Configure()
+  .ForProblem(problem)
+  .WithPopulationSize(100)
+  .RenewingPopulationAfterSameFitnessEpochs(10)
+  .StoppingComputationAfter(60).Seconds
+  .Build();
+
+var solution = solvingEnvironment.Solve(); //takes about 60 seconds
+
+Console.WriteLine(solution);
+```
+
+The best solution found during computation is printed to the console.
+
+Too tricky? Read the [wiki](A-simple-example)! :-)
+Wiki clearly explains the concepts behind this library and all its features.
+
+#License
+NaturalShift is released under the terms of AGPL-3.0 license. This library is Free Software because of [this](https://www.youtube.com/watch?v=DjqGvUcPDZs).
+
+#Author
+Write me at esposito.marce@gmail.com
