@@ -27,7 +27,7 @@ Console.WriteLine(solution);
 
 The best solution found during computation is printed to the console.
 
-Too tricky? Read the [wiki](A-simple-example)! :-)
+Too tricky? Read the [wiki](https://github.com/supix/NaturalShift/wiki)! :-)
 Wiki clearly explains the concepts behind this library and all its features.
 
 #License
