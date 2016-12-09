@@ -1,4 +1,5 @@
-﻿// Copyright (c) 2016 - esposito.marce@gmail.com
+﻿extensions: .cs
+// Copyright (c) 2016 - esposito.marce@gmail.com
 // This file is part of NaturalShift.
 // 
 // NaturalShift is free software: you can redistribute it and/or modify
@@ -13,11 +14,3 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
-
-namespace NaturalShift.Model.ProblemModel.FluentInterfaces
-{
-    public interface ICfgSecondSlotForCrossItemApt
-    {
-        IConfigurableProblem CoveringSlot(int slot);
-    }
-}
