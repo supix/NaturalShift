@@ -70,7 +70,9 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         ICfgMultipleSlotsForSlotWeight,
         ICfgMultipleItemsForItemWeight,
         ICfgLastItemForItemWeight,
-        ICfgLastSlotForSlotWeight
+        ICfgLastSlotForSlotWeight,
+        ICfgMultipleSlotsForSlotLength,
+        ICfgLastSlotForSlotLength
     {
         private ItemAptitude itemAptitude;
         private ItemUnavailability itemUnavailability;
@@ -118,19 +120,20 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         #endregion CfgSlotValue
 
+        #region CfgSlotLength
+
+        private int cfgSlotLength_length;
+        private int cfgSlotLength_fromSlot;
+        private int cfgSlotLength_toSlot;
+
+        #endregion CfgSlotValue
+
         #region CfgStartupEffort
 
         private float cfgItemStartupEffort_effort;
         private int cfgItemStartupEffort_item;
 
         #endregion CfgStartupEffort
-
-        #region CfgSlotLength
-
-        private int cfgSlotLength_length;
-        private int cfgSlotLength_slot;
-
-        #endregion CfgSlotLength
 
         #region CfgCrossItemAptitude
 
@@ -546,7 +549,8 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         IConfigurableProblem ICfgSlotLength.ToSlot(int slot)
         {
-            this.cfgSlotLength_slot = slot;
+            this.cfgSlotLength_fromSlot = slot;
+            this.cfgSlotLength_toSlot = slot;
             this.resolveSlotLengthConfiguration();
 
             return this;
@@ -774,7 +778,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         private void resolveSlotLengthConfiguration()
         {
-            this.problem.SetSlotLength(this.cfgSlotLength_length, this.cfgSlotLength_slot);
+            this.problem.SetSlotLength(this.cfgSlotLength_length, this.cfgSlotLength_fromSlot, this.cfgSlotLength_toSlot);
         }
 
         private void resolveSlotValueConfiguration()
@@ -798,7 +802,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         {
             cfgSlotValue_fromSlot = 0;
             cfgSlotValue_toSlot = this.problem.Slots - 1;
-            resolveSlotValueConfiguration();
+            this.resolveSlotValueConfiguration();
 
             return this;
         }
@@ -813,7 +817,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         IConfigurableProblem ICfgLastSlotForSlotValue.To(int slot)
         {
             cfgSlotValue_toSlot = slot;
-            resolveSlotValueConfiguration();
+            this.resolveSlotValueConfiguration();
 
             return this;
         }
@@ -827,7 +831,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         {
             this.slotOrItemWeight_from = 0;
             this.slotOrItemWeight_to = this.problem.Slots - 1;
-            resolveSlotWeightConfiguration();
+            this.resolveSlotWeightConfiguration();
 
             return this;
         }
@@ -841,7 +845,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         {
             this.slotOrItemWeight_from = 0;
             this.slotOrItemWeight_to = this.problem.Items - 1;
-            resolveItemWeightConfiguration();
+            this.resolveItemWeightConfiguration();
 
             return this;
         }
@@ -863,7 +867,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         IConfigurableProblem ICfgLastItemForItemWeight.To(int item)
         {
             this.slotOrItemWeight_to = item;
-            resolveItemWeightConfiguration();
+            this.resolveItemWeightConfiguration();
 
             return this;
         }
@@ -871,7 +875,36 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         IConfigurableProblem ICfgLastSlotForSlotWeight.To(int slot)
         {
             this.slotOrItemWeight_to = slot;
-            resolveSlotWeightConfiguration();
+            this.resolveSlotWeightConfiguration();
+
+            return this;
+        }
+
+        ICfgMultipleSlotsForSlotLength ICfgSlotLength.ToSlots()
+        {
+            return this;
+        }
+
+        ICfgLastSlotForSlotLength ICfgMultipleSlotsForSlotLength.From(int slot)
+        {
+            this.cfgSlotLength_fromSlot = slot;
+
+            return this;
+        }
+
+        IConfigurableProblem ICfgLastSlotForSlotLength.To(int slot)
+        {
+            this.cfgSlotLength_toSlot = slot;
+            this.resolveSlotLengthConfiguration();
+
+            return this;
+        }
+
+        IConfigurableProblem ICfgSlotLength.ToAllSlots()
+        {
+            this.cfgSlotLength_fromSlot = 0;
+            this.cfgSlotLength_toSlot = problem.Slots - 1;
+            this.resolveSlotLengthConfiguration();
 
             return this;
         }

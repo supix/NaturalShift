@@ -1181,6 +1181,78 @@ namespace NaturalShift.UnitTests
 
         [Test]
         [Repeat(1000)]
+        public void SlotRangeLengthIsCorrectlySet()
+        {
+            var slots = rnd.Next(50) + 2;
+            var length = rnd.Next(5);
+            var fromSlot = rnd.Next(slots);
+            var toSlot = rnd.Next(slots);
+            if (fromSlot > toSlot)
+            {
+                var temp = fromSlot;
+                fromSlot = toSlot;
+                toSlot = temp;
+            }
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(slots)
+                .WithItems(this.RandomFrom5To15())
+                .AssigningLength(length).ToSlots().From(fromSlot).To(toSlot)
+                .Build();
+
+            for (int i = fromSlot; i <= toSlot; i++)
+                Assert.That(problem.SlotLengths[i], Is.EqualTo(length));
+        }
+
+        [Test]
+        [Repeat(1000)]
+        public void SlotLengthOutOfSlotRangeIsUnaffected()
+        {
+            var slots = rnd.Next(50) + 2;
+            var length = rnd.Next(5);
+            var fromSlot = rnd.Next(slots);
+            var toSlot = rnd.Next(slots);
+            if (fromSlot > toSlot)
+            {
+                var temp = fromSlot;
+                fromSlot = toSlot;
+                toSlot = temp;
+            }
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(slots)
+                .WithItems(this.RandomFrom5To15())
+                .AssigningLength(length).ToSlots().From(fromSlot).To(toSlot)
+                .Build();
+
+            for (int i = 0; i < fromSlot; i++)
+                Assert.That(problem.SlotLengths[i], Is.EqualTo(1));
+            for (int i = toSlot + 1; i < problem.Slots; i++)
+                Assert.That(problem.SlotLengths[i], Is.EqualTo(1));
+        }
+
+        [Test]
+        [Repeat(1000)]
+        public void AllSlotLengthsIsCorrectlyConfigured()
+        {
+            var slots = rnd.Next(50) + 2;
+            var length = rnd.Next(5);
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(slots)
+                .WithItems(this.RandomFrom5To15())
+                .AssigningLength(length).ToAllSlots()
+                .Build();
+
+            for (int i = 0; i < problem.Slots; i++)
+                Assert.That(problem.SlotLengths[i], Is.EqualTo(length));
+        }
+
+        [Test]
+        [Repeat(1000)]
         public void SlotRangeUnavailabilityIsCorrectlyConfigured()
         {
             var slots = rnd.Next(20) + 2;

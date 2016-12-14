@@ -187,9 +187,10 @@ namespace NaturalShift.Model.ProblemModel
             this.ItemStartupEfforts[item] = effort;
         }
 
-        internal void SetSlotLength(int length, int slot)
+        internal void SetSlotLength(int length, int fromSlot, int toSlot)
         {
-            this.SlotLengths[slot] = length;
+            for (int i = fromSlot; i <= toSlot; i++)
+                this.SlotLengths[i] = length;
         }
 
         internal void SetConsecutiveSlotAptitudes(float aptitude,
