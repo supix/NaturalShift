@@ -1322,6 +1322,34 @@ namespace NaturalShift.UnitTests
 
         [Test]
         [Repeat(1000)]
+        public void SlotvalueOutOfRangeIsUnaffected()
+        {
+            var slots = rnd.Next(50) + 3;
+            var fromSlot = rnd.Next(slots - 2) + 2;
+            var toSlot = rnd.Next(slots - 2) + 2;
+            if (fromSlot > toSlot)
+            {
+                var temp = fromSlot;
+                fromSlot = toSlot;
+                toSlot = temp;
+            }
+            var value = (Single)(rnd.NextDouble() * 2);
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(slots)
+                .WithItems(this.RandomFrom5To15())
+                .AssigningValue(value).ToSlots().From(fromSlot).To(toSlot)
+                .Build();
+
+            for (int i = 0; i < fromSlot; i++)
+                Assert.That(problem.SlotValues[i], Is.EqualTo(1F));
+            for (int i = toSlot + 1; i < problem.Slots; i++)
+                Assert.That(problem.SlotValues[i], Is.EqualTo(1F));
+        }
+
+        [Test]
+        [Repeat(1000)]
         public void AllSlotValuesIsCorrectlyConfigured()
         {
             var slots = rnd.Next(50) + 3;
