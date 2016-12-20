@@ -1322,7 +1322,7 @@ namespace NaturalShift.UnitTests
 
         [Test]
         [Repeat(1000)]
-        public void SlotvalueOutOfRangeIsUnaffected()
+        public void SlotValueOutOfRangeIsUnaffected()
         {
             var slots = rnd.Next(50) + 3;
             var fromSlot = rnd.Next(slots - 2) + 2;
