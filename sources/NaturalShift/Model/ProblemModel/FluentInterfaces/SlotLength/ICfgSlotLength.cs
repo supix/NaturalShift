@@ -17,8 +17,12 @@
 
 namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 {
-    public interface ICfgMultipleDaysForAptitude
+    public interface ICfgSlotLength
     {
-        ICfgLastDayForAptitude From(int day);
+        IConfigurableProblem ToSlot(int slot);
+
+        ICfgMultipleSlotsForSlotLength ToSlots();
+
+        IConfigurableProblem ToAllSlots();
     }
 }

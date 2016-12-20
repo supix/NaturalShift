@@ -67,6 +67,8 @@
     <Compile Include="Model\ProblemModel\FluentInterfaces\CrossItemAptitude\ICfgSecondSlotForCrossItemApt.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\SlotAndItemWeight\ICfgLastItemForItemWeight.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\SlotAndItemWeight\ICfgLastSlotForSlotWeight.cs" />
+    <Compile Include="Model\ProblemModel\FluentInterfaces\SlotLength\ICfgLastSlotForSlotLength.cs" />
+    <Compile Include="Model\ProblemModel\FluentInterfaces\SlotLength\ICfgMultipleSlotsForSlotLength.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\SlotValue\ICfgLastSlotForSlotValue.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\SlotValue\ICfgMultipleSlotsForSlotValue.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\SlotAndItemWeight\ICfgMultipleItemsForItemWeight.cs" />
@@ -81,7 +83,7 @@
     <Compile Include="Model\ProblemModel\FluentInterfaces\UnavailableItems\ICfgMultipleSlotsForUnavailItem.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\UnavailableItems\ICfgMultipleItemsForUnavailItem.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\UnavailableItems\ICfgSlotForUnavailItem.cs" />
-    <Compile Include="Model\ProblemModel\FluentInterfaces\ICfgSlotLength.cs" />
+    <Compile Include="Model\ProblemModel\FluentInterfaces\SlotLength\ICfgSlotLength.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\SlotValue\ICfgSlotValue.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\SlotAndItemWeight\ICfgWeight.cs" />
     <Compile Include="Model\ProblemModel\FluentInterfaces\SlotClosure\ICfgLastDayOfClosure.cs" />

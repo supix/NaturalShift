@@ -1,4 +1,21 @@
-﻿using NaturalShift.Model.ProblemModel.FluentInterfaces;
+﻿// NaturalShift is an AI based engine to compute workshifts.
+// Copyright (C) 2016 - Marcello Esposito (esposito.marce@gmail.com)
+//
+// This file is part of NaturalShift.
+// NaturalShift is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License, or (at your option) any later version.
+//
+// NaturalShift is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using NaturalShift.Model.ProblemModel.FluentInterfaces;
 using NUnit.Framework;
 using System;
 
@@ -1164,6 +1181,78 @@ namespace NaturalShift.UnitTests
 
         [Test]
         [Repeat(1000)]
+        public void SlotRangeLengthIsCorrectlySet()
+        {
+            var slots = rnd.Next(50) + 2;
+            var length = rnd.Next(5);
+            var fromSlot = rnd.Next(slots);
+            var toSlot = rnd.Next(slots);
+            if (fromSlot > toSlot)
+            {
+                var temp = fromSlot;
+                fromSlot = toSlot;
+                toSlot = temp;
+            }
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(slots)
+                .WithItems(this.RandomFrom5To15())
+                .AssigningLength(length).ToSlots().From(fromSlot).To(toSlot)
+                .Build();
+
+            for (int i = fromSlot; i <= toSlot; i++)
+                Assert.That(problem.SlotLengths[i], Is.EqualTo(length));
+        }
+
+        [Test]
+        [Repeat(1000)]
+        public void SlotLengthOutOfSlotRangeIsUnaffected()
+        {
+            var slots = rnd.Next(50) + 2;
+            var length = rnd.Next(5);
+            var fromSlot = rnd.Next(slots);
+            var toSlot = rnd.Next(slots);
+            if (fromSlot > toSlot)
+            {
+                var temp = fromSlot;
+                fromSlot = toSlot;
+                toSlot = temp;
+            }
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(slots)
+                .WithItems(this.RandomFrom5To15())
+                .AssigningLength(length).ToSlots().From(fromSlot).To(toSlot)
+                .Build();
+
+            for (int i = 0; i < fromSlot; i++)
+                Assert.That(problem.SlotLengths[i], Is.EqualTo(1));
+            for (int i = toSlot + 1; i < problem.Slots; i++)
+                Assert.That(problem.SlotLengths[i], Is.EqualTo(1));
+        }
+
+        [Test]
+        [Repeat(1000)]
+        public void AllSlotLengthsIsCorrectlyConfigured()
+        {
+            var slots = rnd.Next(50) + 2;
+            var length = rnd.Next(5);
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(slots)
+                .WithItems(this.RandomFrom5To15())
+                .AssigningLength(length).ToAllSlots()
+                .Build();
+
+            for (int i = 0; i < problem.Slots; i++)
+                Assert.That(problem.SlotLengths[i], Is.EqualTo(length));
+        }
+
+        [Test]
+        [Repeat(1000)]
         public void SlotRangeUnavailabilityIsCorrectlyConfigured()
         {
             var slots = rnd.Next(20) + 2;
@@ -1229,6 +1318,34 @@ namespace NaturalShift.UnitTests
 
             for (int i = fromSlot; i <= toSlot; i++)
                 Assert.That(problem.SlotValues[i], Is.EqualTo(value));
+        }
+
+        [Test]
+        [Repeat(1000)]
+        public void SlotValueOutOfRangeIsUnaffected()
+        {
+            var slots = rnd.Next(50) + 3;
+            var fromSlot = rnd.Next(slots - 2) + 2;
+            var toSlot = rnd.Next(slots - 2) + 2;
+            if (fromSlot > toSlot)
+            {
+                var temp = fromSlot;
+                fromSlot = toSlot;
+                toSlot = temp;
+            }
+            var value = (Single)(rnd.NextDouble() * 2);
+
+            var problem = ProblemBuilder.Configure()
+                .WithDays(this.RandomFrom5To15())
+                .WithSlots(slots)
+                .WithItems(this.RandomFrom5To15())
+                .AssigningValue(value).ToSlots().From(fromSlot).To(toSlot)
+                .Build();
+
+            for (int i = 0; i < fromSlot; i++)
+                Assert.That(problem.SlotValues[i], Is.EqualTo(1F));
+            for (int i = toSlot + 1; i < problem.Slots; i++)
+                Assert.That(problem.SlotValues[i], Is.EqualTo(1F));
         }
 
         [Test]

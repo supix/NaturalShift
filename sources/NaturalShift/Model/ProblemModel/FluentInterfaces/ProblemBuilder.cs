@@ -1,18 +1,19 @@
-﻿// Copyright (c) 2016 - esposito.marce@gmail.com
+﻿// NaturalShift is an AI based engine to compute workshifts.
+// Copyright (C) 2016 - Marcello Esposito (esposito.marce@gmail.com)
+//
 // This file is part of NaturalShift.
-// 
 // NaturalShift is free software: you can redistribute it and/or modify
-// it under the terms of the Affero GNU General Public License as
+// it under the terms of the GNU Affero General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
-// 
-// Foobar is distributed in the hope that it will be useful,
+//
+// NaturalShift is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 
@@ -69,7 +70,9 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         ICfgMultipleSlotsForSlotWeight,
         ICfgMultipleItemsForItemWeight,
         ICfgLastItemForItemWeight,
-        ICfgLastSlotForSlotWeight
+        ICfgLastSlotForSlotWeight,
+        ICfgMultipleSlotsForSlotLength,
+        ICfgLastSlotForSlotLength
     {
         private ItemAptitude itemAptitude;
         private ItemUnavailability itemUnavailability;
@@ -117,19 +120,20 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         #endregion CfgSlotValue
 
+        #region CfgSlotLength
+
+        private int cfgSlotLength_length;
+        private int cfgSlotLength_fromSlot;
+        private int cfgSlotLength_toSlot;
+
+        #endregion CfgSlotLength
+
         #region CfgStartupEffort
 
         private float cfgItemStartupEffort_effort;
         private int cfgItemStartupEffort_item;
 
         #endregion CfgStartupEffort
-
-        #region CfgSlotLength
-
-        private int cfgSlotLength_length;
-        private int cfgSlotLength_slot;
-
-        #endregion CfgSlotLength
 
         #region CfgCrossItemAptitude
 
@@ -545,7 +549,8 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         IConfigurableProblem ICfgSlotLength.ToSlot(int slot)
         {
-            this.cfgSlotLength_slot = slot;
+            this.cfgSlotLength_fromSlot = slot;
+            this.cfgSlotLength_toSlot = slot;
             this.resolveSlotLengthConfiguration();
 
             return this;
@@ -773,7 +778,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         private void resolveSlotLengthConfiguration()
         {
-            this.problem.SetSlotLength(this.cfgSlotLength_length, this.cfgSlotLength_slot);
+            this.problem.SetSlotLength(this.cfgSlotLength_length, this.cfgSlotLength_fromSlot, this.cfgSlotLength_toSlot);
         }
 
         private void resolveSlotValueConfiguration()
@@ -797,7 +802,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         {
             cfgSlotValue_fromSlot = 0;
             cfgSlotValue_toSlot = this.problem.Slots - 1;
-            resolveSlotValueConfiguration();
+            this.resolveSlotValueConfiguration();
 
             return this;
         }
@@ -812,7 +817,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         IConfigurableProblem ICfgLastSlotForSlotValue.To(int slot)
         {
             cfgSlotValue_toSlot = slot;
-            resolveSlotValueConfiguration();
+            this.resolveSlotValueConfiguration();
 
             return this;
         }
@@ -826,7 +831,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         {
             this.slotOrItemWeight_from = 0;
             this.slotOrItemWeight_to = this.problem.Slots - 1;
-            resolveSlotWeightConfiguration();
+            this.resolveSlotWeightConfiguration();
 
             return this;
         }
@@ -840,7 +845,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         {
             this.slotOrItemWeight_from = 0;
             this.slotOrItemWeight_to = this.problem.Items - 1;
-            resolveItemWeightConfiguration();
+            this.resolveItemWeightConfiguration();
 
             return this;
         }
@@ -862,7 +867,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         IConfigurableProblem ICfgLastItemForItemWeight.To(int item)
         {
             this.slotOrItemWeight_to = item;
-            resolveItemWeightConfiguration();
+            this.resolveItemWeightConfiguration();
 
             return this;
         }
@@ -870,7 +875,36 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         IConfigurableProblem ICfgLastSlotForSlotWeight.To(int slot)
         {
             this.slotOrItemWeight_to = slot;
-            resolveSlotWeightConfiguration();
+            this.resolveSlotWeightConfiguration();
+
+            return this;
+        }
+
+        ICfgMultipleSlotsForSlotLength ICfgSlotLength.ToSlots()
+        {
+            return this;
+        }
+
+        ICfgLastSlotForSlotLength ICfgMultipleSlotsForSlotLength.From(int slot)
+        {
+            this.cfgSlotLength_fromSlot = slot;
+
+            return this;
+        }
+
+        IConfigurableProblem ICfgLastSlotForSlotLength.To(int slot)
+        {
+            this.cfgSlotLength_toSlot = slot;
+            this.resolveSlotLengthConfiguration();
+
+            return this;
+        }
+
+        IConfigurableProblem ICfgSlotLength.ToAllSlots()
+        {
+            this.cfgSlotLength_fromSlot = 0;
+            this.cfgSlotLength_toSlot = problem.Slots - 1;
+            this.resolveSlotLengthConfiguration();
 
             return this;
         }

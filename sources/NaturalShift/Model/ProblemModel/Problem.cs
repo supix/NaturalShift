@@ -1,18 +1,19 @@
-﻿// Copyright (c) 2016 - esposito.marce@gmail.com
+﻿// NaturalShift is an AI based engine to compute workshifts.
+// Copyright (C) 2016 - Marcello Esposito (esposito.marce@gmail.com)
+//
 // This file is part of NaturalShift.
-// 
 // NaturalShift is free software: you can redistribute it and/or modify
-// it under the terms of the Affero GNU General Public License as
+// it under the terms of the GNU Affero General Public License as
 // published by the Free Software Foundation, either version 3 of the
 // License, or (at your option) any later version.
-// 
-// Foobar is distributed in the hope that it will be useful,
+//
+// NaturalShift is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
@@ -186,9 +187,10 @@ namespace NaturalShift.Model.ProblemModel
             this.ItemStartupEfforts[item] = effort;
         }
 
-        internal void SetSlotLength(int length, int slot)
+        internal void SetSlotLength(int length, int fromSlot, int toSlot)
         {
-            this.SlotLengths[slot] = length;
+            for (int i = fromSlot; i <= toSlot; i++)
+                this.SlotLengths[i] = length;
         }
 
         internal void SetConsecutiveSlotAptitudes(float aptitude,
