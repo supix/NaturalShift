@@ -68,9 +68,11 @@ namespace NaturalShift.SolvingEnvironment.Chromosomes
                     }
                 }
             }
+#if DEBUG
             //Test whether just the right number of genes have been provided (and used)
             if (idx != fromZeroToOneArray.Length)
                 throw new InvalidOperationException("Chromosome too long");
+#endif
         }
     }
 }
