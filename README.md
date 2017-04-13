@@ -31,7 +31,9 @@ Too tricky? Read the [wiki](https://github.com/supix/NaturalShift/wiki)! :-)
 Wiki clearly explains the concepts behind this library and all its features.
 
 #License
+
 NaturalShift is released under the terms of AGPL-3.0 license. This library is Free Software because of [this](https://www.youtube.com/watch?v=DjqGvUcPDZs).
 
 #Author
+
 Write me at esposito.marce@gmail.com
