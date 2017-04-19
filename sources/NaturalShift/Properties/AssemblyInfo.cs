@@ -23,11 +23,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NaturalShift")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A library useful to compute workshifts based on a genetic algoritm.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("supix")]
 [assembly: AssemblyProduct("NaturalShift")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
