@@ -1,4 +1,7 @@
-﻿// NaturalShift is an AI based engine to compute workshifts.
+﻿//-----------------------------------------------------------------------
+// <copyright file="ICfgMultipleItemsForAptitude.cs" company="supix">
+//
+// NaturalShift is an AI based engine to compute workshifts.
 // Copyright (C) 2016 - Marcello Esposito (esposito.marce@gmail.com)
 //
 // This file is part of NaturalShift.
@@ -13,8 +16,9 @@
 // GNU Affero General Public License for more details.
 //
 // You should have received a copy of the GNU Affero General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+// along with this program.  If not, see http://www.gnu.org/licenses/.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 {
     public interface ICfgMultipleItemsForAptitude
