@@ -39,7 +39,10 @@ Console.ReadLine();
 The best solution found during computation is printed to the console.
 
 Too tricky? Read the [wiki](https://github.com/supix/NaturalShift/wiki)! :-)
-Wiki clearly explains the concepts behind this library and all its features.
+
+# Wiki
+
+In the [wiki](https://github.com/supix/NaturalShift/wiki) you can find a lot of useful information about how to use and configure this library. Wiki clearly explains the concepts behind this library and all of its features.
 
 # License
 NaturalShift is released under the terms of AGPL-3.0 license. This library is Free Software because of [this](https://www.youtube.com/watch?v=DjqGvUcPDZs).
