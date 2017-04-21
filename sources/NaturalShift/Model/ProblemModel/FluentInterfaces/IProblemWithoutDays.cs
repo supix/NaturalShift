@@ -23,6 +23,11 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 {
     public interface IProblemWithoutDays
     {
+        /// <summary>
+        /// Configures the number of days in the workshift
+        /// </summary>
+        /// <param name="days">The number of days</param>
+        /// <returns>The fluent interface for configuring number of slots</returns>
         IProblemWithoutSlots WithDays(int days);
     }
 }

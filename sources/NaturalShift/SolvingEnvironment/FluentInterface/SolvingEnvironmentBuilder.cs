@@ -79,11 +79,20 @@ namespace NaturalShift.SolvingEnvironment
             this.environmentConfig = new EnvironmentConfig();
         }
 
+        /// <summary>
+        /// Gets the fluent interface for configuring a solving environment
+        /// </summary>
+        /// <returns>The fluent interface for configuring the problem to solve</returns>
         public static ISolvingEnvironmentWithoutProblem Configure()
         {
             return new SolvingEnvironmentBuilder();
         }
 
+        /// <summary>
+        /// Specifies the problem to be solved
+        /// </summary>
+        /// <param name="problem">The problem to solve</param>
+        /// <returns>The fluent interface</returns>
         IConfigurableSolvingEnvironment ISolvingEnvironmentWithoutProblem.ForProblem(Problem problem)
         {
             this.problem = problem;
@@ -91,6 +100,11 @@ namespace NaturalShift.SolvingEnvironment
             return this;
         }
 
+        /// <summary>
+        /// Configures the population size of the genetic algoritm 
+        /// </summary>
+        /// <param name="size">The population size</param>
+        /// <returns>The fluent interface</returns>
         IConfigurableSolvingEnvironment IConfigurableSolvingEnvironment.WithPopulationSize(int size)
         {
             this.environmentConfig.PopulationSize = size;
@@ -98,6 +112,11 @@ namespace NaturalShift.SolvingEnvironment
             return this;
         }
 
+        /// <summary>
+        /// Configures the maximum number of epochs for a population
+        /// </summary>
+        /// <param name="epochs">The maximum number of epochs</param>
+        /// <returns>The fluent interface</returns>
         IConfigurableSolvingEnvironment IConfigurableSolvingEnvironment.RenewingPopulationAfterEpochs(int epochs)
         {
             this.environmentConfig.MaxEpochs = epochs;
@@ -105,6 +124,11 @@ namespace NaturalShift.SolvingEnvironment
             return this;
         }
 
+        /// <summary>
+        /// Configures the maximum number of consecutive epochs with same fitness, after which a population renewal is triggered
+        /// </summary>
+        /// <param name="epochs">The maximum number of consecutive epochs</param>
+        /// <returns>The fluent interface</returns>
         IConfigurableSolvingEnvironment IConfigurableSolvingEnvironment.RenewingPopulationAfterSameFitnessEpochs(int epochs)
         {
             this.environmentConfig.MaxEpochsWithoutFitnessImprovement = epochs;
@@ -112,6 +136,11 @@ namespace NaturalShift.SolvingEnvironment
             return this;
         }
 
+        /// <summary>
+        /// Configures the computation duration
+        /// </summary>
+        /// <param name="after">The number of time units</param>
+        /// <returns>The fluent interface for specifying the chosen time unit</returns>
         IConfiguringTime IConfigurableSolvingEnvironment.StoppingComputationAfter(int after)
         {
             this.elapsed = after;
@@ -119,6 +148,11 @@ namespace NaturalShift.SolvingEnvironment
             return this;
         }
 
+        /// <summary>
+        /// Configures the number of threads used by the solving environment
+        /// </summary>
+        /// <param name="threads">The number of threads</param>
+        /// <returns>The fluent interface</returns>
         IConfigurableSolvingEnvironment IConfigurableSolvingEnvironment.UsingExactlyANumberOfThreadsEqualTo(int threads)
         {
             if (threads < 1)
@@ -129,6 +163,10 @@ namespace NaturalShift.SolvingEnvironment
             return this;
         }
 
+        /// <summary>
+        /// Builds an instance of the solving environment
+        /// </summary>
+        /// <returns>The fluent interface</returns>
         ISolvingEnvironment IConfigurableSolvingEnvironment.Build()
         {
             if (!this.numberOfThreads.HasValue)

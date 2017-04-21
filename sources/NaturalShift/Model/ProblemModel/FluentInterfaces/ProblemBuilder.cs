@@ -149,6 +149,9 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 
         #endregion CfgCrossItemAptitude
 
+        /// <summary>
+        /// Gets the interface for configuring slot closures
+        /// </summary>
         ICfgSlotClosure IConfigurableProblem.Closing
         {
             get
@@ -159,6 +162,9 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             }
         }
 
+        /// <summary>
+        /// Gets the interface for configuring cross-item aptitudes
+        /// </summary>
         ICfgCrossItemAptitude IConfigurableProblem.ConsideringThat
         {
             get
@@ -167,6 +173,9 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             }
         }
 
+        /// <summary>
+        /// Gets the interface for configuring item unavailabilities
+        /// </summary>
         ICfgItemForUnavailItem IConfigurableProblem.Making
         {
             get
@@ -176,6 +185,9 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             }
         }
 
+        /// <summary>
+        /// Gets the interface for configuring consecutive slot aptitudes
+        /// </summary>
         ICfgConsecutiveSlotAptitude IConfigurableProblem.Multiplying
         {
             get
@@ -184,6 +196,10 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             }
         }
 
+        /// <summary>
+        /// Gets the interface for fluently configuring a problem
+        /// </summary>
+        /// <returns>The fluent interface for configuring number of days</returns>
         public static IProblemWithoutDays Configure()
         {
             return new ProblemBuilder();
@@ -620,6 +636,11 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             return this;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring item aptitudes
+        /// </summary>
+        /// <param name="aptitude">The item aptitude</param>
+        /// <returns>The fluent interface</returns>
         ICfgItemForAptitude IConfigurableProblem.AssigningAptitude(float aptitude)
         {
             this.itemAptitude = new ItemAptitude();
@@ -628,6 +649,11 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             return this;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring slot lenghts
+        /// </summary>
+        /// <param name="length">The slot length</param>
+        /// <returns>The fluent interface</returns>
         ICfgSlotLength IConfigurableProblem.AssigningLength(int length)
         {
             this.cfgSlotLength_length = length;
@@ -635,6 +661,11 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             return this;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring item startup efforts
+        /// </summary>
+        /// <param name="effort">The startup effort</param>
+        /// <returns>The fluent interface</returns>
         ICfgItemStartupEffort IConfigurableProblem.AssigningStartupEffort(Single effort)
         {
             this.cfgItemStartupEffort_effort = effort;
@@ -642,6 +673,11 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             return this;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring slot values
+        /// </summary>
+        /// <param name="value">The slot value</param>
+        /// <returns>The fluent interface</returns>
         ICfgSlotValue IConfigurableProblem.AssigningValue(Single value)
         {
             this.cfgSlotValue_value = value;
@@ -649,6 +685,11 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             return this;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring slot weights
+        /// </summary>
+        /// <param name="weight">The slot weight</param>
+        /// <returns>The fluent interface</returns>
         ICfgWeight IConfigurableProblem.AssigningWeight(float weight)
         {
             this.slotOrItemWeight_weight = weight;
@@ -656,11 +697,20 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             return this;
         }
 
+        /// <summary>
+        /// Buils a problem instance
+        /// </summary>
+        /// <returns>The problem instance</returns>
         Problem IConfigurableProblem.Build()
         {
             return this.problem;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring compatible slots
+        /// </summary>
+        /// <param name="slot">The first compatible slot</param>
+        /// <returns>The fluent interface</returns>
         ICfgSlotCompatibility IConfigurableProblem.MakingSlot(int slot)
         {
             this.compatibleSlots_slot1 = slot;
@@ -668,6 +718,11 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             return this;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring rest after max working days reached
+        /// </summary>
+        /// <param name="days">The number of rest days</param>
+        /// <returns>The fluent interface</returns>
         IConfigurableProblem IConfigurableProblem.RestAfterMaxWorkingDaysReached(int days)
         {
             this.problem.RestAfterMaxWorkingDaysReached = days;
@@ -675,30 +730,55 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             return this;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring the default items aptitude
+        /// </summary>
+        /// <param name="aptitude">The default aptitude</param>
+        /// <returns>The fluent interface</returns>
         IConfigurableProblem IConfigurableProblem.WithDefaultAptitude(float aptitude)
         {
             this.problem.DefaultAptitude = aptitude;
             return this;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring the date of the first day in the workshift
+        /// </summary>
+        /// <param name="day">The date of the first day</param>
+        /// <returns>The fluent interface</returns>
         IConfigurableProblem IConfigurableProblem.WithFirstDay(DateTime day)
         {
             this.problem.FirstDay = day;
             return this;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring the maximum number of consecutive working days
+        /// </summary>
+        /// <param name="maxDays">The maximum</param>
+        /// <returns>The fluent interface</returns>
         IConfigurableProblem IConfigurableProblem.WithMaxConsecutiveWorkingDaysEqualTo(int maxDays)
         {
             this.problem.MaxConsecutiveWorkingDays = maxDays;
             return this;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring the number of days in the workshift
+        /// </summary>
+        /// <param name="days">The number of days</param>
+        /// <returns>The fluent interface for configuring number of slots</returns>
         IProblemWithoutSlots IProblemWithoutDays.WithDays(int days)
         {
             this.days = days;
             return this;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring the number of items in the workshift
+        /// </summary>
+        /// <param name="items">The number of items</param>
+        /// <returns>The fluent interface</returns>
         IConfigurableProblem IProblemWithoutItems.WithItems(int items)
         {
             this.items = items;
@@ -707,6 +787,11 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
             return this;
         }
 
+        /// <summary>
+        /// Gets the interface for configuring the number of slots in the workshift
+        /// </summary>
+        /// <param name="slots">The number of slots</param>
+        /// <returns>The fluent interface for configuring the number of items</returns>
         IProblemWithoutItems IProblemWithoutSlots.WithSlots(int slots)
         {
             this.slots = slots;

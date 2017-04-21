@@ -40,7 +40,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         ICfgSlotCompatibility MakingSlot(int slot);
 
         /// <summary>
-        /// Start configuring slot closure
+        /// Start configuring slot closures
         /// </summary>
         ICfgSlotClosure Closing { get; }
 
@@ -83,7 +83,7 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         ICfgCrossItemAptitude ConsideringThat { get; }
 
         /// <summary>
-        /// Start configuring aptitude
+        /// Start configuring item aptitudes
         /// </summary>
         /// <param name="aptitude">The aptitude</param>
         /// <returns>The fluent interface</returns>
@@ -96,16 +96,16 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
         ICfgConsecutiveSlotAptitude Multiplying { get; }
 
         /// <summary>
-        /// Set max consecutive working days
+        /// Configures the maximum consecutive working days
         /// </summary>
         /// <param name="maxDays">The maximum number of working days</param>
         /// <returns>The fluent interface</returns>
         IConfigurableProblem WithMaxConsecutiveWorkingDaysEqualTo(int maxDays);
 
         /// <summary>
-        /// Set rest days after maximum working days reached
+        /// Configures the number of rest days after maximum working days reached
         /// </summary>
-        /// <param name="days">Rest days</param>
+        /// <param name="days">The number of rest days</param>
         /// <returns>The fluent interface</returns>
         IConfigurableProblem RestAfterMaxWorkingDaysReached(int days);
 

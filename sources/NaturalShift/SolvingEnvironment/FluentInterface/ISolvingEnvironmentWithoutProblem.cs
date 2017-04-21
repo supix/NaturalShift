@@ -25,6 +25,11 @@ namespace NaturalShift.SolvingEnvironment
 {
     public interface ISolvingEnvironmentWithoutProblem
     {
+        /// <summary>
+        /// Specifies the problem to be solved
+        /// </summary>
+        /// <param name="problem">The problem to solve</param>
+        /// <returns>The fluent interface</returns>
         IConfigurableSolvingEnvironment ForProblem(Problem problem);
     }
 }

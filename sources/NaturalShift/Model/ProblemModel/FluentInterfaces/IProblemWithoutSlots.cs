@@ -23,6 +23,11 @@ namespace NaturalShift.Model.ProblemModel.FluentInterfaces
 {
     public interface IProblemWithoutSlots
     {
+        /// <summary>
+        /// Gets the interface for configuring the number of slots in the workshift
+        /// </summary>
+        /// <param name="slots">The number of slots</param>
+        /// <returns>The fluent interface for configuring the number of items</returns>
         IProblemWithoutItems WithSlots(int slots);
     }
 }

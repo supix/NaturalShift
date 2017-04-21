@@ -4,15 +4,15 @@
     <id>$id$</id>
     <version>$version$</version>
     <title>$title$</title>
-    <authors>supix</authors>
+    <authors>@supixsupix (esposito.marce@gmail.com)</authors>
     <owners>supix</owners>
     <licenseUrl>https://www.gnu.org/licenses/agpl-3.0.en.html</licenseUrl>
     <projectUrl>https://github.com/supix/NaturalShift</projectUrl>
-    <iconUrl>https://github.com/supix/NaturalShift/blob/master/images/Logo.png</iconUrl>
+    <iconUrl>https://s12.postimg.org/mpp0zumf1/Logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A library useful to compute workshifts, based on a genetic algoritm.</description>
-    <releaseNotes>First release</releaseNotes>
+    <releaseNotes>ProblemBuilder and SolvingEnvironmentBuilder fluent interfaces are documented through documentation comments.</releaseNotes>
     <copyright>Copyright 2016-2017</copyright>
-    <tags>workshift shift fair arrangement shifter table night</tags>
+    <tags>workshift shift fair arrangement shifter table night genetic</tags>
   </metadata>
 </package>
