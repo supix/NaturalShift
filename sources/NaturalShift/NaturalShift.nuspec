@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/supix/NaturalShift</projectUrl>
     <iconUrl>https://s12.postimg.org/mpp0zumf1/Logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A library useful to compute workshifts, based on a genetic algoritm.</description>
+    <description>$description$</description>
     <releaseNotes>ProblemBuilder and SolvingEnvironmentBuilder fluent interfaces are documented through documentation comments.</releaseNotes>
     <copyright>Copyright 2016-2017</copyright>
     <tags>workshift shift fair arrangement shifter table night genetic</tags>
