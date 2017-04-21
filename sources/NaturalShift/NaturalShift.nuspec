@@ -11,7 +11,7 @@
     <iconUrl>https://s12.postimg.org/mpp0zumf1/Logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>ProblemBuilder and SolvingEnvironmentBuilder fluent interfaces are documented through documentation comments.</releaseNotes>
+    <releaseNotes>XML documentation file is distributed along with the main assembly.</releaseNotes>
     <copyright>Copyright 2016-2017</copyright>
     <tags>workshift shift fair arrangement shifter table night genetic</tags>
   </metadata>
