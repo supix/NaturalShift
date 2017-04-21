@@ -50,4 +50,4 @@ NaturalShift is released under the terms of AGPL-3.0 license. This library is Fr
 # Author
 Write me at esposito.marce@gmail.com
 
-If you find this library useful consider making me a donation : [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/espositomarce)
+If you find this library useful, please consider making me a donation : [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/espositomarce)
