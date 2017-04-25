@@ -24,7 +24,7 @@ namespace NaturalShift.Model.SolutionModel
     public interface ISolution
     {
         /// <summary>
-        /// The matrix [item, day] whose value is the slot index covered (if any).
+        /// The matrix [day, slot] whose value is the item index covering the slot in the day (if any).
         /// </summary>
         int?[,] Allocations { get; }
 

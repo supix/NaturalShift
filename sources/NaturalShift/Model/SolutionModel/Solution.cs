@@ -19,12 +19,21 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace NaturalShift.Model.SolutionModel
 {
     public class Solution : ISolution
     {
+        private readonly int numberOfItems;
+
+        public Solution(int numberOfItems)
+        {
+            this.numberOfItems = numberOfItems;
+        }
+
         public double Fitness { get; set; }
         public int?[,] Allocations { get; set; }
         public int EvaluatedSolutions { get; set; }
@@ -36,18 +45,39 @@ namespace NaturalShift.Model.SolutionModel
             sb.AppendLine(Fitness.ToString());
             sb.Append("Evaluated solutions: ");
             sb.AppendLine(EvaluatedSolutions.ToString());
-            for (int item = 0; item < Allocations.GetLength(0); item++)
+
+            for (int item = 0; item < numberOfItems; item++)
             {
-                for (int day = 0; day < Allocations.GetLength(1); day++)
+                for (int day = 0; day < Allocations.GetLength(0); day++)
                 {
-                    sb.Append(Allocations[item, day].HasValue ? Allocations[item, day].Value.ToString().PadLeft(3) : "  -");
-                    if (day < Allocations.GetLength(1) - 1)
-                        sb.Append(",");
+                    var shifts = new List<int>();
+                    for (int slot = 0; slot < Allocations.GetLength(1); slot++)
+                    {
+                        if (Allocations[day, slot] == item)
+                            shifts.Add(slot);
+                    }
+
+                    sb.Append(shiftsToString(shifts));
+
+                    if (day < Allocations.GetLength(0) - 1)
+                        sb.Append(", ");
                 }
                 sb.AppendLine();
             }
 
             return sb.ToString();
+        }
+
+        private string shiftsToString(List<int> shifts)
+        {
+            if (shifts.Count == 0)
+                return " -";
+
+            if (shifts.Count == 1)
+                return shifts[0].ToString().PadLeft(2);
+
+            var joinedShifts = string.Join(",", shifts);
+            return string.Format("({0})", joinedShifts);
         }
     }
 }

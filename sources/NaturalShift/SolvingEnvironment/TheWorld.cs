@@ -120,7 +120,7 @@ namespace NaturalShift.SolvingEnvironment
             });
 
             population.GetTop(1)[0].Evaluate(fitnessFunction.Evaluate);
-            return SolutionBuilder.Build(overallBestFitness, shiftMatrix, epochs * population.PopulationSize);
+            return SolutionBuilder.Build(overallBestFitness, shiftMatrix, epochs * population.PopulationSize, this.problem.Items);
         }
 
         private void Ga_OnGenerationComplete(object sender, GaEventArgs e)

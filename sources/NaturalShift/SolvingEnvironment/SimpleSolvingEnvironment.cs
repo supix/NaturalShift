@@ -91,7 +91,7 @@ namespace NaturalShift.SolvingEnvironment
                     bestSolutionSoFar = bestSolution;
             } while (!computationTerminationManager.Terminated((int)sw.ElapsedMilliseconds, totalElapsedEpochs));
 
-            return new Solution()
+            return new Solution(this.problem.Items)
             {
                 Fitness = bestSolutionSoFar.Fitness,
                 Allocations = bestSolutionSoFar.Allocations,

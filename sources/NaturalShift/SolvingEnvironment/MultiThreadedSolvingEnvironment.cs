@@ -73,7 +73,7 @@ namespace NaturalShift.SolvingEnvironment
 
             var bestSolution = solvers.OrderByDescending(s => s.BestSolution.Fitness).First().BestSolution;
 
-            return new Solution()
+            return new Solution(this.problem.Items)
             {
                 Fitness = bestSolution.Fitness,
                 Allocations = bestSolution.Allocations,

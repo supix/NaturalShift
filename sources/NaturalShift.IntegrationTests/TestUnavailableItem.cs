@@ -81,9 +81,9 @@ namespace NaturalShift.IntegrationTests
 
             var solution = solvingEnvironment.Solve();
 
-            for (int item = fromItem; item <= toItem; item++)
-                for (int day = fromDay; day <= toDay; day++)
-                    Assert.That(solution.Allocations[item, day], Is.Null.Or.Not.InRange(fromSlot, toSlot));
+            for (int day = fromDay; day <= toDay; day++)
+                for (int slot = fromSlot; slot <= toSlot; slot++)
+                    Assert.That(solution.Allocations[day, slot], Is.Null.Or.Not.InRange(fromItem, toItem));
         }
     }
 }
