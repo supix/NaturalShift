@@ -1,5 +1,5 @@
 # What is NaturalShift?
-NaturalShift is a .NET library useful to compute workshifts. Computation is based on genetic algoritms. Number of days, shifts and shifters can be configured, together with many other contraints and directives.
+NaturalShift is a .NET library useful to compute workshifts. Computation is based on a genetic algoritm. Number of days, shifts and shifters can be configured, together with many other constraints and directives. See the [wiki](https://github.com/supix/NaturalShift/wiki) for a complete explaination.
 
 # NuGet
 NuGet compiled package is available at https://www.nuget.org/packages/NaturalShift
