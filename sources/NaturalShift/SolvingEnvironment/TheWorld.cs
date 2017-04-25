@@ -19,6 +19,7 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
+using System;
 using GAF;
 using GAF.Operators;
 using GAF.Threading;
@@ -30,7 +31,6 @@ using NaturalShift.SolvingEnvironment.Fitness;
 using NaturalShift.SolvingEnvironment.Matrix;
 using NaturalShift.SolvingEnvironment.MatrixEnumerators;
 using NaturalShift.SolvingEnvironment.Utils;
-using System;
 
 namespace NaturalShift.SolvingEnvironment
 {

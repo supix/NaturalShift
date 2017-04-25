@@ -19,10 +19,10 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
-using NaturalShift.Model.ProblemModel;
-using NaturalShift.SolvingEnvironment.Matrix;
 using System.Collections.Generic;
 using System.Linq;
+using NaturalShift.Model.ProblemModel;
+using NaturalShift.SolvingEnvironment.Matrix;
 
 namespace NaturalShift.SolvingEnvironment.Fitness
 {
