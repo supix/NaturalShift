@@ -19,11 +19,11 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
 using NaturalShift.SolvingEnvironment.Constraints;
 using NaturalShift.SolvingEnvironment.Matrix;
 using NaturalShift.SolvingEnvironment.MatrixEnumerators;
-using System;
-using System.Collections.Generic;
 
 namespace NaturalShift.SolvingEnvironment.Chromosomes
 {

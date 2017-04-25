@@ -19,10 +19,10 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
+using System;
 using GAF;
 using NaturalShift.SolvingEnvironment.Chromosomes;
 using NaturalShift.SolvingEnvironment.Matrix;
-using System;
 
 namespace NaturalShift.SolvingEnvironment.Fitness
 {

@@ -19,8 +19,8 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
-using NaturalShift.Model.ProblemModel;
 using System;
+using NaturalShift.Model.ProblemModel;
 
 namespace NaturalShift.SolvingEnvironment
 {
@@ -101,7 +101,7 @@ namespace NaturalShift.SolvingEnvironment
         }
 
         /// <summary>
-        /// Configures the population size of the genetic algoritm 
+        /// Configures the population size of the genetic algoritm
         /// </summary>
         /// <param name="size">The population size</param>
         /// <returns>The fluent interface</returns>

@@ -19,11 +19,11 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
+using System;
+using System.Diagnostics;
 using NaturalShift.Model.ProblemModel;
 using NaturalShift.Model.SolutionModel;
 using NaturalShift.SolvingEnvironment.Utils;
-using System;
-using System.Diagnostics;
 
 namespace NaturalShift.SolvingEnvironment
 {
@@ -91,7 +91,7 @@ namespace NaturalShift.SolvingEnvironment
                     bestSolutionSoFar = bestSolution;
             } while (!computationTerminationManager.Terminated((int)sw.ElapsedMilliseconds, totalElapsedEpochs));
 
-            return new Solution()
+            return new Solution(this.problem.Items)
             {
                 Fitness = bestSolutionSoFar.Fitness,
                 Allocations = bestSolutionSoFar.Allocations,

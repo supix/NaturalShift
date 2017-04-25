@@ -19,9 +19,9 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
+using System.Threading;
 using NaturalShift.Model.ProblemModel;
 using NaturalShift.Model.SolutionModel;
-using System.Threading;
 
 namespace NaturalShift.SolvingEnvironment
 {

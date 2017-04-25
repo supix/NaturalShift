@@ -19,13 +19,13 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
-using NaturalShift.Model.ProblemModel;
-using NaturalShift.Model.SolutionModel;
-using NaturalShift.SolvingEnvironment.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using NaturalShift.Model.ProblemModel;
+using NaturalShift.Model.SolutionModel;
+using NaturalShift.SolvingEnvironment.Utils;
 
 namespace NaturalShift.SolvingEnvironment
 {
@@ -73,7 +73,7 @@ namespace NaturalShift.SolvingEnvironment
 
             var bestSolution = solvers.OrderByDescending(s => s.BestSolution.Fitness).First().BestSolution;
 
-            return new Solution()
+            return new Solution(this.problem.Items)
             {
                 Fitness = bestSolution.Fitness,
                 Allocations = bestSolution.Allocations,

@@ -19,11 +19,11 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
+using System;
 using Moq;
 using NaturalShift.Model.ProblemModel;
 using NaturalShift.SolvingEnvironment;
 using NUnit.Framework;
-using System;
 
 namespace NaturalShift.UnitTests
 {

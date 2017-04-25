@@ -19,9 +19,9 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
-using NaturalShift.SolvingEnvironment.ItemSelectors;
 using System;
 using System.Text;
+using NaturalShift.SolvingEnvironment.ItemSelectors;
 
 namespace NaturalShift.SolvingEnvironment.Matrix
 {

@@ -19,10 +19,10 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
+using System;
 using NaturalShift.Model.ProblemModel.FluentInterfaces;
 using NaturalShift.SolvingEnvironment;
 using NUnit.Framework;
-using System;
 
 namespace NaturalShift.IntegrationTests
 {
@@ -72,9 +72,9 @@ namespace NaturalShift.IntegrationTests
 
             var solution = solvingEnvironment.Solve();
 
-            for (int item = 0; item < problem.Items; item++)
-                for (int day = fromDay; day <= toDay; day++)
-                    Assert.That(solution.Allocations[item, day], Is.Null.Or.Not.InRange(fromSlot, toSlot));
+            for (int day = fromDay; day <= toDay; day++)
+                for (int slot = fromSlot; slot <= toSlot; slot++)
+                    Assert.That(solution.Allocations[day, slot], Is.Null);
         }
     }
 }

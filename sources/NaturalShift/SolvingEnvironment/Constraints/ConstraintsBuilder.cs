@@ -19,8 +19,8 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // </copyright>
 //-----------------------------------------------------------------------
-using NaturalShift.Model.ProblemModel;
 using System.Collections.Generic;
+using NaturalShift.Model.ProblemModel;
 
 namespace NaturalShift.SolvingEnvironment.Constraints
 {
