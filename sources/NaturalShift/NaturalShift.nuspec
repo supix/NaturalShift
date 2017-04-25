@@ -8,10 +8,17 @@
     <owners>supix</owners>
     <licenseUrl>https://www.gnu.org/licenses/agpl-3.0.en.html</licenseUrl>
     <projectUrl>https://github.com/supix/NaturalShift</projectUrl>
-    <iconUrl>https://s12.postimg.org/mpp0zumf1/Logo.png</iconUrl>
+    <iconUrl>https://s17.postimg.org/s9ditc3an/Natural_Shift_Logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>XML documentation file is distributed along with the main assembly.</releaseNotes>
+    <releaseNotes> Bug fix on solution encoding.
+
+    Solution encoding allows for multiple slots
+    covered by the same item in the same day (which is possible in case of
+    compatible slots enabled in problem configuration).
+
+    Solution.ToString() method handles this case as well: for instance, if the
+    1st and 2nd slots are simultaneously covered, the solution shows the string `(1, 2)`.</releaseNotes>
     <copyright>Copyright 2016-2017</copyright>
     <tags>workshift shift fair arrangement shifter table night genetic</tags>
   </metadata>
